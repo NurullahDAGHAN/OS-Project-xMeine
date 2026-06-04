@@ -7,9 +7,12 @@ enum LevelTaskType {
   ipAddressSelection,
   gatewaySelection,
   dnsSelection,
+  subnetMaskSelection,
+  dhcpSelection,
+  firewallSelection,
 }
 
-enum LevelSceneTheme { home, gateway, dns }
+enum LevelSceneTheme { home, gateway, dns, office, dataCenter, security }
 
 class LevelPoint {
   const LevelPoint(this.x, this.y);
@@ -53,14 +56,14 @@ class CableConnectionData {
 }
 
 class LevelGoalData {
-  const LevelGoalData({this.connection, this.ipSelection});
+  const LevelGoalData({this.connection, this.selection});
 
   final CableConnectionData? connection;
-  final IpSelectionData? ipSelection;
+  final SelectionGoalData? selection;
 }
 
-class IpSelectionData {
-  const IpSelectionData({
+class SelectionGoalData {
+  const SelectionGoalData({
     required this.question,
     required this.options,
     required this.correctOption,
@@ -103,9 +106,7 @@ class LevelData {
   final LevelGoalData goal;
 
   bool get usesOptionSelection {
-    return taskType == LevelTaskType.ipAddressSelection ||
-        taskType == LevelTaskType.gatewaySelection ||
-        taskType == LevelTaskType.dnsSelection;
+    return taskType != LevelTaskType.ethernetConnection;
   }
 
   LevelObjectData objectByType(LevelObjectType type) {
@@ -120,13 +121,11 @@ class LevelData {
     return connection;
   }
 
-  IpSelectionData get ipSelectionGoal {
-    final ipSelection = goal.ipSelection;
-    if (ipSelection == null) {
-      throw StateError('Level $id does not define an IP selection goal.');
+  SelectionGoalData get selectionGoal {
+    final selection = goal.selection;
+    if (selection == null) {
+      throw StateError('Level $id does not define a selection goal.');
     }
-    return ipSelection;
+    return selection;
   }
-
-  IpSelectionData get selectionGoal => ipSelectionGoal;
 }

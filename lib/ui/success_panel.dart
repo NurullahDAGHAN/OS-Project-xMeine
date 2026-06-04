@@ -1,26 +1,53 @@
 import 'package:flutter/material.dart';
 
+import '../l10n/app_localizations.dart';
+
 class SuccessPanel extends StatelessWidget {
   const SuccessPanel({
     super.key,
+    required this.strings,
     required this.message,
     required this.learningNote,
     required this.nextStepMessage,
     required this.onRestart,
+    this.isFinalLevel = false,
     this.learningIcon = Icons.school_outlined,
     this.onNext,
+    this.onReturnToStart,
+    this.onCloseApp,
+    this.onExit,
+    this.onClose,
   });
 
   static const overlayKey = 'success_panel';
 
+  final AppStrings strings;
   final String message;
   final String learningNote;
   final String nextStepMessage;
   final VoidCallback onRestart;
+  final bool isFinalLevel;
   final IconData learningIcon;
   final VoidCallback? onNext;
+  final VoidCallback? onReturnToStart;
+  final VoidCallback? onCloseApp;
+  final VoidCallback? onExit;
+  final VoidCallback? onClose;
 
+  @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
+    final availableHeight =
+        isPortrait ? screenHeight * 0.75 : screenHeight * 0.9;
+    final title =
+        isFinalLevel ? strings.gameCompleteTitle : strings.successTitle;
+    final headerMessage = isFinalLevel ? strings.gameCompleteMessage : message;
+    final badgeColor =
+        isFinalLevel ? const Color(0xFFF2B84B) : const Color(0xFF36D47A);
+    final badgeIcon = isFinalLevel ? Icons.emoji_events_outlined : Icons.check;
+
     return ColoredBox(
       color: const Color(0x73000000),
       child: SafeArea(
@@ -28,7 +55,10 @@ class SuccessPanel extends StatelessWidget {
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16),
             child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 460),
+              constraints: BoxConstraints(
+                maxWidth: 460,
+                maxHeight: availableHeight,
+              ),
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -42,24 +72,24 @@ class SuccessPanel extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(22),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(22),
+                      child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
                             width: 42,
                             height: 42,
-                            decoration: const BoxDecoration(
-                              color: Color(0xFF36D47A),
+                            decoration: BoxDecoration(
+                              color: badgeColor,
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(
-                              Icons.check,
+                            child: Icon(
+                              badgeIcon,
                               color: Colors.white,
                               size: 26,
                             ),
@@ -70,7 +100,7 @@ class SuccessPanel extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Basarili!',
+                                  title,
                                   style: Theme.of(
                                     context,
                                   ).textTheme.headlineSmall?.copyWith(
@@ -80,7 +110,7 @@ class SuccessPanel extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
-                                  message,
+                                  headerMessage,
                                   style: Theme.of(
                                     context,
                                   ).textTheme.bodyMedium?.copyWith(
@@ -91,47 +121,145 @@ class SuccessPanel extends StatelessWidget {
                               ],
                             ),
                           ),
+                          if (onClose != null)
+                            IconButton(
+                              onPressed: onClose,
+                              icon: const Icon(
+                                Icons.logout,
+                                color: Color(0xFFE57373),
+                              ),
+                              tooltip: strings.exit,
+                            ),
                         ],
                       ),
-                      const SizedBox(height: 18),
-                      _LearningNote(
-                        icon: learningIcon,
-                        title: 'Ogrenilen konu',
-                        body: learningNote,
-                      ),
-                      const SizedBox(height: 10),
-                      _LearningNote(
-                        icon: Icons.route_outlined,
-                        title: 'Sonraki adim',
-                        body: nextStepMessage,
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          OutlinedButton.icon(
-                            onPressed: onRestart,
-                            icon: const Icon(Icons.restart_alt),
-                            label: const Text('Tekrar dene'),
-                          ),
-                          if (onNext != null) ...[
-                            const SizedBox(width: 10),
-                            FilledButton.icon(
-                              onPressed: onNext,
-                              icon: const Icon(Icons.arrow_forward),
-                              label: const Text('Sonraki bolum'),
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.symmetric(horizontal: 22),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _LearningNote(
+                              icon: learningIcon,
+                              title: strings.learnedTopic,
+                              body: learningNote,
+                            ),
+                            const SizedBox(height: 10),
+                            _LearningNote(
+                              icon: Icons.route_outlined,
+                              title: strings.nextStep,
+                              body: nextStepMessage,
                             ),
                           ],
-                        ],
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(22),
+                      child:
+                          isFinalLevel
+                              ? _FinalActions(
+                                strings: strings,
+                                onReturnToStart: onReturnToStart,
+                                onCloseApp: onCloseApp,
+                                onExit: onExit,
+                              )
+                              : _LevelActions(
+                                strings: strings,
+                                onRestart: onRestart,
+                                onNext: onNext,
+                              ),
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _LevelActions extends StatelessWidget {
+  const _LevelActions({
+    required this.strings,
+    required this.onRestart,
+    required this.onNext,
+  });
+
+  final AppStrings strings;
+  final VoidCallback onRestart;
+  final VoidCallback? onNext;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Expanded(
+          child: OutlinedButton.icon(
+            onPressed: onRestart,
+            icon: const Icon(Icons.restart_alt),
+            label: Text(strings.retry),
+          ),
+        ),
+        if (onNext != null) ...[
+          const SizedBox(width: 10),
+          Expanded(
+            child: FilledButton.icon(
+              onPressed: onNext,
+              icon: const Icon(Icons.arrow_forward),
+              label: Text(strings.nextLevel),
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+class _FinalActions extends StatelessWidget {
+  const _FinalActions({
+    required this.strings,
+    required this.onReturnToStart,
+    required this.onCloseApp,
+    required this.onExit,
+  });
+
+  final AppStrings strings;
+  final VoidCallback? onReturnToStart;
+  final VoidCallback? onCloseApp;
+  final VoidCallback? onExit;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        FilledButton.icon(
+          onPressed: onReturnToStart,
+          icon: const Icon(Icons.first_page),
+          label: Text(strings.returnToStart),
+        ),
+        const SizedBox(height: 10),
+        OutlinedButton.icon(
+          onPressed: onCloseApp,
+          icon: const Icon(Icons.power_settings_new),
+          label: Text(strings.closeApp),
+          style: OutlinedButton.styleFrom(
+            foregroundColor: Colors.red[700],
+            side: BorderSide(color: Colors.red[200]!),
+          ),
+        ),
+        const SizedBox(height: 10),
+        OutlinedButton.icon(
+          onPressed: onExit,
+          icon: const Icon(Icons.logout),
+          label: Text(strings.exit),
+        ),
+      ],
     );
   }
 }
@@ -147,6 +275,7 @@ class _LearningNote extends StatelessWidget {
   final String title;
   final String body;
 
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(12),

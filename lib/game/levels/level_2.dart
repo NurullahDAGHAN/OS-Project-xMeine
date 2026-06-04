@@ -5,19 +5,19 @@ const level2 = LevelData(
   taskType: LevelTaskType.ipAddressSelection,
   title: 'IP Adresi',
   sceneTheme: LevelSceneTheme.home,
-  instruction: 'Bilgisayar icin dogru IP adresini sec',
+  instruction: 'Bilgisayar için doğru IP adresini seç',
   dialogue:
-      'Kablo baglandi. Simdi bilgisayarin ayni agda konusabilmesi icin uygun bir IP adresi secmeliyiz.',
+      'Kablo bağlandı. Şimdi bilgisayarın aynı ağda konuşabilmesi için uygun bir IP adresi seçmeliyiz.',
   hintMessage:
-      'Modem 192.168.1.x aginda. Bilgisayar da 192.168.1 ile baslayan bos bir adres almali.',
+      'Modem 192.168.1.x ağında. Bilgisayar da 192.168.1 ile başlayan boş bir adres almalı.',
   connectedMessage:
-      'Dogru IP secildi. Bilgisayar artik modemle ayni yerel agda.',
+      'Doğru IP seçildi. Bilgisayar artık modemle aynı yerel ağda.',
   successMessage:
-      'Harika! IP adresi, cihazlarin ag uzerinde birbirini bulmasini saglar.',
+      'Harika! IP adresi, cihazların ağ üzerinde birbirini bulmasını sağlar.',
   learningNote:
-      'IP adresi, cihazlarin ayni yerel ag uzerinde birbirini bulmasini saglar.',
+      'IP adresi, cihazların aynı yerel ağ üzerinde birbirini bulmasını sağlar.',
   nextStepMessage:
-      'Bir sonraki bolumde yerel agdan internete cikis icin gateway sececegiz.',
+      'Bir sonraki bölümde yerel ağdan internete çıkış için gateway seçeceğiz.',
   objects: [
     LevelObjectData(
       id: 'computer',
@@ -54,8 +54,8 @@ const level2 = LevelData(
       restEnd: LevelPoint(637, 348),
       target: LevelPoint(637, 348),
     ),
-    ipSelection: IpSelectionData(
-      question: 'Bu ag icin en uygun IP hangisi?',
+    selection: SelectionGoalData(
+      question: 'Bu ağ için en uygun IP hangisi?',
       options: ['192.168.1.24', '10.0.0.9', '172.16.4.2'],
       correctOption: '192.168.1.24',
     ),

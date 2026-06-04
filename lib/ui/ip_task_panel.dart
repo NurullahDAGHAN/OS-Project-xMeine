@@ -8,6 +8,7 @@ class IpTaskPanel extends StatelessWidget {
     required this.onSelect,
     this.leadingIcon = Icons.numbers,
     this.optionIcon = Icons.dns_outlined,
+    this.dense = false,
   });
 
   final String question;
@@ -15,6 +16,7 @@ class IpTaskPanel extends StatelessWidget {
   final ValueChanged<String> onSelect;
   final IconData leadingIcon;
   final IconData optionIcon;
+  final bool dense;
 
   Widget build(BuildContext context) {
     return DecoratedBox(
@@ -30,55 +32,54 @@ class IpTaskPanel extends StatelessWidget {
           ),
         ],
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final compact = constraints.maxWidth < 620;
-            final buttons =
-                options.map((option) {
-                  return _IpOptionButton(
-                    label: option,
-                    icon: optionIcon,
-                    onPressed: () => onSelect(option),
-                  );
-                }).toList();
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final compact = !dense && constraints.maxWidth < 620;
+          final buttons =
+              options.map((option) {
+                return _IpOptionButton(
+                  label: option,
+                  icon: optionIcon,
+                  onPressed: () => onSelect(option),
+                  dense: dense,
+                );
+              }).toList();
 
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      width: 34,
-                      height: 34,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFE8F5F1),
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: const Color(0xFFCDE5DD)),
-                      ),
-                      child: Icon(
-                        leadingIcon,
-                        color: Color(0xFF2D736A),
-                        size: 20,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        question,
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          color: const Color(0xFF263A36),
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                    ),
-                  ],
+          final header = Row(
+            children: [
+              Container(
+                width: dense ? 28 : 34,
+                height: dense ? 28 : 34,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFE8F5F1),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: const Color(0xFFCDE5DD)),
                 ),
-                const SizedBox(height: 10),
-                if (compact)
-                  Column(
+                child: Icon(
+                  leadingIcon,
+                  color: const Color(0xFF2D736A),
+                  size: dense ? 17 : 20,
+                ),
+              ),
+              SizedBox(width: dense ? 8 : 10),
+              Expanded(
+                child: Text(
+                  question,
+                  maxLines: dense ? 1 : null,
+                  overflow: dense ? TextOverflow.ellipsis : null,
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    color: const Color(0xFF263A36),
+                    fontWeight: FontWeight.w900,
+                    fontSize: dense ? 13 : null,
+                  ),
+                ),
+              ),
+            ],
+          );
+
+          final buttonRow =
+              compact
+                  ? Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children:
                         buttons
@@ -90,24 +91,32 @@ class IpTaskPanel extends StatelessWidget {
                             )
                             .toList(),
                   )
-                else
-                  Row(
-                    children:
-                        buttons
-                            .map(
-                              (button) => Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 8),
-                                  child: button,
-                                ),
-                              ),
-                            )
-                            .toList(),
-                  ),
-              ],
-            );
-          },
-        ),
+                  : Row(
+                    children: List.generate(buttons.length, (index) {
+                      return Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            right: index == buttons.length - 1 ? 0 : 8,
+                          ),
+                          child: buttons[index],
+                        ),
+                      );
+                    }),
+                  );
+
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(padding: EdgeInsets.all(dense ? 8 : 12), child: header),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: dense ? 8 : 12),
+                child: buttonRow,
+              ),
+              SizedBox(height: dense ? 8 : 12),
+            ],
+          );
+        },
       ),
     );
   }
@@ -118,23 +127,35 @@ class _IpOptionButton extends StatelessWidget {
     required this.label,
     required this.icon,
     required this.onPressed,
+    required this.dense,
   });
 
   final String label;
   final IconData icon;
   final VoidCallback onPressed;
+  final bool dense;
 
   Widget build(BuildContext context) {
     return OutlinedButton.icon(
       onPressed: onPressed,
-      icon: Icon(icon, size: 18),
-      label: Text(label),
+      icon: Icon(icon, size: dense ? 16 : 18),
+      label: Text(
+        label,
+        maxLines: dense ? 1 : null,
+        overflow: dense ? TextOverflow.ellipsis : null,
+      ),
       style: OutlinedButton.styleFrom(
         foregroundColor: const Color(0xFF2F5F59),
         side: const BorderSide(color: Color(0xFFCDE5DD)),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-        textStyle: const TextStyle(fontWeight: FontWeight.w800),
+        padding: EdgeInsets.symmetric(
+          horizontal: dense ? 8 : 12,
+          vertical: dense ? 8 : 12,
+        ),
+        textStyle: TextStyle(
+          fontWeight: FontWeight.w800,
+          fontSize: dense ? 12 : null,
+        ),
       ),
     );
   }

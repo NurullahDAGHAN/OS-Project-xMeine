@@ -3,21 +3,21 @@ import 'level_data.dart';
 const level1 = LevelData(
   id: 'ethernet_connection',
   taskType: LevelTaskType.ethernetConnection,
-  title: 'Ethernet Baglantisi',
+  title: 'Ethernet Bağlantısı',
   sceneTheme: LevelSceneTheme.home,
-  instruction: 'Bilgisayari modeme bagla',
+  instruction: 'Bilgisayarı modeme bağla',
   dialogue:
-      'Bilgisayar internete cikamiyor. Once Ethernet kablosunu modeme baglayalim.',
+      'Bilgisayar internete çıkamıyor. Önce Ethernet kablosunu modeme bağlayalım.',
   hintMessage:
-      'Kablo ucunu modem uzerindeki koyu renkli Ethernet portuna birakmalisin.',
+      'Kablo ucunu modem üzerindeki koyu renkli Ethernet portuna bırakmalısın.',
   connectedMessage:
-      'Fiziksel baglanti kuruldu. Modem ve bilgisayar artik ayni agda konusabilir.',
+      'Fiziksel bağlantı kuruldu. Modem ve bilgisayar artık aynı ağda konuşabilir.',
   successMessage:
-      'Basarili! Bilgisayar artik modeme bagli. Bir sonraki adimda IP adresini ogrenecegiz.',
+      'Başarılı! Bilgisayar artık modeme bağlı. Bir sonraki adımda IP adresini öğreneceğiz.',
   learningNote:
-      'Ethernet kablosu, bilgisayar ile modem arasinda fiziksel ag baglantisi kurar.',
+      'Ethernet kablosu, bilgisayar ile modem arasında fiziksel ağ bağlantısı kurar.',
   nextStepMessage:
-      'Bir sonraki bolumde bilgisayarin ag uzerinde IP adresi almasini ele alacagiz.',
+      'Bir sonraki bölümde bilgisayarın ağ üzerinde IP adresi almasını ele alacağız.',
   objects: [
     LevelObjectData(
       id: 'computer',

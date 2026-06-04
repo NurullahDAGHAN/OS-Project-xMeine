@@ -10,6 +10,8 @@ Flame
 CustomPainter-style component rendering
 ValueNotifier-based UI state
 Level data defined in Dart files
+SQLite-backed local progress
+Level selection panel
 Android APK release build
 Web build for quick testing
 ```
@@ -70,16 +72,28 @@ SQLite is not being chosen for complex online features. It is being chosen becau
 
 ## Current Limitation
 
-At the moment, level data is stored in Dart files:
+At the moment, level metadata is still stored in Dart files:
 
 ```txt
 lib/game/levels/level_1.dart
 lib/game/levels/level_2.dart
+lib/game/levels/level_3.dart
+lib/game/levels/level_4.dart
 ```
 
-This is fine for the prototype, but it becomes harder to manage when the number of levels grows.
+This is acceptable for the current four-level MVP, but it becomes harder to manage when the number of levels grows. Player progress is already separated into SQLite and should stay outside the Flame game scene.
 
-## Planned SQLite Migration
+## SQLite Migration Status
+
+The MVP stores player progress in SQLite:
+
+```txt
+completed levels
+unlocked levels
+attempt counts
+hint usage counts
+last played level
+```
 
 The future implementation should move level metadata into SQLite tables.
 
@@ -96,6 +110,7 @@ Current level is selected
 Level content is mapped to Dart models
 Flame scene is built from the loaded model
 Progress is saved after level completion
+Next level is unlocked after success
 ```
 
 ## Suggested Flutter Packages
@@ -124,13 +139,10 @@ Future structure:
 ```txt
 lib/
   data/
-    database/
-      app_database.dart
-      database_seed.dart
-      level_tables.dart
-    repositories/
-      level_repository.dart
-      progress_repository.dart
+    game_progress_controller.dart
+    level_repository.dart
+    progress_repository.dart
+    sqlite_progress_repository.dart
   game/
     network_game.dart
     levels/
@@ -171,4 +183,3 @@ success_sparkle.png
 ```
 
 The current code should remain functional even if final assets are not ready. This prevents asset production from blocking level design.
-

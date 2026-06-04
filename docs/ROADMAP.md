@@ -9,11 +9,16 @@ Flutter + Flame project
 Portrait-friendly scaling
 Level 1: Ethernet cable connection
 Level 2: IP address selection
+Level 3: default gateway selection
+Level 4: DNS server selection
+SQLite-backed local progress
+Level selection panel with locked/completed states
 HUD and success panel
 Basic visual effects
 Android APK release build
 Web build for testing
 Asset folder structure
+Automated model, progress, and controller tests
 ```
 
 ## Short-Term Plan
@@ -36,31 +41,29 @@ Reason:
 Before adding many levels, the first two levels should feel correct and understandable.
 ```
 
-### 2. Add SQLite
+### 2. Expand SQLite Usage
 
 Focus:
 
 ```txt
-Add local database
 Move level metadata to seed data
-Store completion state
-Unlock next level after success
-Track attempts and hint usage
+Keep completion state reliable across app launches
+Use stored attempts and hint usage for student feedback
 ```
 
 Reason:
 
 ```txt
-SQLite will let the app manage level progression and make future level additions easier.
+SQLite now manages MVP level progression. The next step is moving level metadata from Dart constants into seed data when the level model stabilizes further.
 ```
 
-### 3. Add Level Selection Screen
+### 3. Improve Level Selection Screen
 
 Focus:
 
 ```txt
-Show unlocked and locked levels
-Show completed levels
+Improve unlocked and locked level states
+Show completed levels with richer progress details
 Allow replay
 Display simple concept names
 ```
@@ -216,4 +219,3 @@ Use one concept per level
 Add SQLite after the level model is stable
 Keep assets consistent
 ```
-

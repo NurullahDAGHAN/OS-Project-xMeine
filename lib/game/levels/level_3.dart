@@ -3,21 +3,21 @@ import 'level_data.dart';
 const level3 = LevelData(
   id: 'default_gateway',
   taskType: LevelTaskType.gatewaySelection,
-  title: 'Varsayilan Ag Gecidi',
+  title: 'Varsayılan Ağ Geçidi',
   sceneTheme: LevelSceneTheme.gateway,
-  instruction: 'Internete cikis icin dogru gecidi sec',
+  instruction: 'İnternete çıkış için doğru geçidi seç',
   dialogue:
-      'IP adresi tamam. Simdi bilgisayar yerel ag disina cikmak icin hangi cihaza gidecegini bilmeli.',
+      'IP adresi tamam. Şimdi bilgisayar yerel ağ dışına çıkmak için hangi cihaza gideceğini bilmeli.',
   hintMessage:
-      'Yerel agdan disari cikis kapisi modemdir. Gateway olarak modemin adresini secmelisin.',
+      'Yerel ağdan dışarı çıkış kapısı modemdir. Gateway olarak modemin adresini seçmelisin.',
   connectedMessage:
-      'Dogru ag gecidi secildi. Trafik internete modem uzerinden cikacak.',
+      'Doğru ağ geçidi seçildi. Trafik internete modem üzerinden çıkacak.',
   successMessage:
-      'Basarili! Varsayilan ag gecidi, farkli aglara giderken kullanilan cikis noktasidir.',
+      'Başarılı! Varsayılan ağ geçidi, farklı ağlara giderken kullanılan çıkış noktasıdır.',
   learningNote:
-      'Gateway, bilgisayarin yerel ag disina cikmak icin kullandigi modem veya router adresidir.',
+      'Gateway, bilgisayarın yerel ağ dışına çıkmak için kullandığı modem veya router adresidir.',
   nextStepMessage:
-      'Bir sonraki bolumde web sitesi adlarinin IP adreslerine nasil donustugunu gorecegiz.',
+      'Bir sonraki bölümde web sitesi adlarının IP adreslerine nasıl dönüştüğünü göreceğiz.',
   objects: [
     LevelObjectData(
       id: 'computer',
@@ -54,8 +54,8 @@ const level3 = LevelData(
       restEnd: LevelPoint(637, 348),
       target: LevelPoint(637, 348),
     ),
-    ipSelection: IpSelectionData(
-      question: 'Default gateway olarak hangisi secilmeli?',
+    selection: SelectionGoalData(
+      question: 'Default gateway olarak hangisi seçilmeli?',
       options: ['192.168.1.1 (Modem)', '192.168.1.24 (PC)', '8.8.8.8 (DNS)'],
       correctOption: '192.168.1.1 (Modem)',
     ),

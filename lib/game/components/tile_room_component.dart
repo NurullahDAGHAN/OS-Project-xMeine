@@ -23,6 +23,9 @@ class TileRoomComponent extends PositionComponent {
       LevelSceneTheme.home => const Color(0x18C49B6C),
       LevelSceneTheme.gateway => const Color(0x1C73A8CE),
       LevelSceneTheme.dns => const Color(0x1C6B7DFF),
+      LevelSceneTheme.office => const Color(0x1CFFB347),
+      LevelSceneTheme.dataCenter => const Color(0x1C2FB7D8),
+      LevelSceneTheme.security => const Color(0x22E66B6B),
     };
     canvas.drawOval(
       const Rect.fromLTWH(86, 118, 724, 448),
@@ -56,6 +59,18 @@ class TileRoomComponent extends PositionComponent {
         const Color(0xFFD6E9F0),
       ],
       LevelSceneTheme.dns => [const Color(0xFFF1EEF9), const Color(0xFFE2DDF1)],
+      LevelSceneTheme.office => [
+        const Color(0xFFF8F0DD),
+        const Color(0xFFEBDCB8),
+      ],
+      LevelSceneTheme.dataCenter => [
+        const Color(0xFFE7F2F4),
+        const Color(0xFFCFE2E7),
+      ],
+      LevelSceneTheme.security => [
+        const Color(0xFFF7EAEA),
+        const Color(0xFFEBD4D4),
+      ],
     };
     final rightColors = switch (theme) {
       LevelSceneTheme.home => [
@@ -67,6 +82,18 @@ class TileRoomComponent extends PositionComponent {
         const Color(0xFFCFE4D9),
       ],
       LevelSceneTheme.dns => [const Color(0xFFEAF4FF), const Color(0xFFD5E5F6)],
+      LevelSceneTheme.office => [
+        const Color(0xFFEAF4F0),
+        const Color(0xFFD1E6DC),
+      ],
+      LevelSceneTheme.dataCenter => [
+        const Color(0xFFEAEFFC),
+        const Color(0xFFD3DDF0),
+      ],
+      LevelSceneTheme.security => [
+        const Color(0xFFEFF3E9),
+        const Color(0xFFDCE7CF),
+      ],
     };
 
     final leftPaint =
@@ -121,16 +148,34 @@ class TileRoomComponent extends PositionComponent {
         const Color(0xFFCFB284),
       ],
       LevelSceneTheme.dns => [const Color(0xFFDDE4F6), const Color(0xFFB9C8E7)],
+      LevelSceneTheme.office => [
+        const Color(0xFFE6D6A8),
+        const Color(0xFFC8AB68),
+      ],
+      LevelSceneTheme.dataCenter => [
+        const Color(0xFFD3DEE3),
+        const Color(0xFFAAB9C0),
+      ],
+      LevelSceneTheme.security => [
+        const Color(0xFFE1D2D2),
+        const Color(0xFFC2A3A3),
+      ],
     };
     final floorStroke = switch (theme) {
       LevelSceneTheme.home => const Color(0xFFC09B6A),
       LevelSceneTheme.gateway => const Color(0xFF9F8155),
       LevelSceneTheme.dns => const Color(0xFF879AC3),
+      LevelSceneTheme.office => const Color(0xFFA47F3E),
+      LevelSceneTheme.dataCenter => const Color(0xFF6F8791),
+      LevelSceneTheme.security => const Color(0xFF9B6767),
     };
     final tileColor = switch (theme) {
       LevelSceneTheme.home => const Color(0xFFD5B783),
       LevelSceneTheme.gateway => const Color(0xFFB89A68),
       LevelSceneTheme.dns => const Color(0xFF9DAED1),
+      LevelSceneTheme.office => const Color(0xFFB99958),
+      LevelSceneTheme.dataCenter => const Color(0xFF8EA3AE),
+      LevelSceneTheme.security => const Color(0xFFAD8181),
     };
 
     canvas.drawPath(
@@ -200,6 +245,12 @@ class TileRoomComponent extends PositionComponent {
         _drawGatewayDetails(canvas);
       case LevelSceneTheme.dns:
         _drawDnsDetails(canvas);
+      case LevelSceneTheme.office:
+        _drawOfficeDetails(canvas);
+      case LevelSceneTheme.dataCenter:
+        _drawDataCenterDetails(canvas);
+      case LevelSceneTheme.security:
+        _drawSecurityDetails(canvas);
     }
   }
 
@@ -319,6 +370,193 @@ class TileRoomComponent extends PositionComponent {
       '-> 93.184.216.34',
       const Offset(226, 156),
       const Color(0xFF2D736A),
+    );
+  }
+
+  void _drawOfficeDetails(Canvas canvas) {
+    final boardPaint = Paint()..color = const Color(0xFFFFFFFF);
+    final boardBorder =
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 3
+          ..color = const Color(0xFF92A394);
+    final board = RRect.fromRectAndRadius(
+      const Rect.fromLTWH(204, 108, 150, 82),
+      const Radius.circular(8),
+    );
+    canvas.drawRRect(board, boardPaint);
+    canvas.drawRRect(board, boardBorder);
+    _drawLabel(
+      canvas,
+      'IP: 192.168.1.24',
+      const Offset(220, 124),
+      const Color(0xFF3A4867),
+    );
+    _drawLabel(
+      canvas,
+      'Mask: /24',
+      const Offset(220, 150),
+      const Color(0xFF2D736A),
+    );
+
+    final switchBody = RRect.fromRectAndRadius(
+      const Rect.fromLTWH(590, 132, 106, 52),
+      const Radius.circular(8),
+    );
+    canvas.drawRRect(switchBody, Paint()..color = const Color(0xFF4E6A60));
+    canvas.drawRRect(
+      switchBody,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2
+        ..color = const Color(0xFF263A36),
+    );
+    for (var i = 0; i < 5; i++) {
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(
+          Rect.fromLTWH(604 + i * 16, 150, 10, 12),
+          const Radius.circular(2),
+        ),
+        Paint()..color = const Color(0xFFFFD36B),
+      );
+    }
+    _drawLabel(canvas, 'LAN', const Offset(628, 163), const Color(0xFFEAF7F0));
+  }
+
+  void _drawDataCenterDetails(Canvas canvas) {
+    for (var rackIndex = 0; rackIndex < 2; rackIndex++) {
+      final left = 574.0 + rackIndex * 68;
+      final rack = RRect.fromRectAndRadius(
+        Rect.fromLTWH(left, 108, 54, 132),
+        const Radius.circular(8),
+      );
+      canvas.drawRRect(rack, Paint()..color = const Color(0xFF334251));
+      canvas.drawRRect(
+        rack,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2
+          ..color = const Color(0xFF72889A),
+      );
+      for (var i = 0; i < 4; i++) {
+        final y = 123.0 + i * 26;
+        canvas.drawRRect(
+          RRect.fromRectAndRadius(
+            Rect.fromLTWH(left + 9, y, 36, 15),
+            const Radius.circular(3),
+          ),
+          Paint()..color = const Color(0xFF62788C),
+        );
+        canvas.drawCircle(
+          Offset(left + 38, y + 7.5),
+          2.6,
+          Paint()..color = const Color(0xFF7DFFA9),
+        );
+      }
+    }
+
+    final poolCard = RRect.fromRectAndRadius(
+      const Rect.fromLTWH(204, 110, 160, 88),
+      const Radius.circular(8),
+    );
+    canvas.drawRRect(poolCard, Paint()..color = const Color(0xFFFFFFFF));
+    canvas.drawRRect(
+      poolCard,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2
+        ..color = const Color(0xFF9AB8C5),
+    );
+    _drawLabel(
+      canvas,
+      'DHCP POOL',
+      const Offset(228, 126),
+      const Color(0xFF2F6D78),
+    );
+    _drawLabel(
+      canvas,
+      '192.168.1.10-80',
+      const Offset(222, 154),
+      const Color(0xFF3A4867),
+    );
+    _drawLabel(
+      canvas,
+      'Lease OK',
+      const Offset(245, 176),
+      const Color(0xFF2D736A),
+    );
+  }
+
+  void _drawSecurityDetails(Canvas canvas) {
+    final wallPaint = Paint()..color = const Color(0xFF8F4F4F);
+    for (var i = 0; i < 4; i++) {
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(
+          Rect.fromLTWH(588 + i * 28, 128, 24, 74),
+          const Radius.circular(4),
+        ),
+        wallPaint,
+      );
+    }
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        const Rect.fromLTWH(582, 196, 126, 18),
+        const Radius.circular(5),
+      ),
+      Paint()..color = const Color(0xFF6F3939),
+    );
+
+    final shield =
+        Path()
+          ..moveTo(282, 104)
+          ..lineTo(342, 126)
+          ..lineTo(334, 184)
+          ..quadraticBezierTo(312, 210, 282, 224)
+          ..quadraticBezierTo(252, 210, 230, 184)
+          ..lineTo(222, 126)
+          ..close();
+    canvas.drawPath(shield, Paint()..color = const Color(0xFFEAF7F0));
+    canvas.drawPath(
+      shield,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 3
+        ..color = const Color(0xFF2D736A),
+    );
+    _drawLabel(canvas, 'FW', const Offset(270, 150), const Color(0xFF2D736A));
+
+    final packetPaint =
+        Paint()
+          ..strokeWidth = 4
+          ..strokeCap = StrokeCap.round
+          ..color = const Color(0xFF2D736A);
+    canvas.drawLine(
+      const Offset(370, 154),
+      const Offset(444, 154),
+      packetPaint,
+    );
+    canvas.drawLine(
+      const Offset(444, 154),
+      const Offset(431, 146),
+      packetPaint,
+    );
+    canvas.drawLine(
+      const Offset(444, 154),
+      const Offset(431, 162),
+      packetPaint,
+    );
+
+    final blockedPaint =
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 4
+          ..strokeCap = StrokeCap.round
+          ..color = const Color(0xFFD75050);
+    canvas.drawCircle(const Offset(476, 154), 17, blockedPaint);
+    canvas.drawLine(
+      const Offset(465, 165),
+      const Offset(487, 143),
+      blockedPaint,
     );
   }
 

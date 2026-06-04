@@ -5,19 +5,19 @@ const level4 = LevelData(
   taskType: LevelTaskType.dnsSelection,
   title: 'DNS Sunucusu',
   sceneTheme: LevelSceneTheme.dns,
-  instruction: 'Site adini IP adresine cevirecek servisi sec',
+  instruction: 'Site adını IP adresine çevirecek servisi seç',
   dialogue:
-      'Ag gecidi hazir. Simdi bilgisayar example.com adini hangi servisle IP adresine cevirecegini bilmeli.',
+      'Ağ geçidi hazır. Şimdi bilgisayar example.com adını hangi servisle IP adresine çevireceğini bilmeli.',
   hintMessage:
-      'Web sitesi adlarini IP adreslerine ceviren servis DNS sunucusudur.',
+      'Web sitesi adlarını IP adreslerine çeviren servis DNS sunucusudur.',
   connectedMessage:
-      'Dogru DNS secildi. Bilgisayar artik alan adindan IP sonucuna ulasabilir.',
+      'Doğru DNS seçildi. Bilgisayar artık alan adından IP sonucuna ulaşabilir.',
   successMessage:
-      'Harika! DNS, site adlarini bilgisayarin baglanabilecegi IP adreslerine cevirir.',
+      'Harika! DNS, site adlarını bilgisayarın bağlanabileceği IP adreslerine çevirir.',
   learningNote:
-      'DNS, example.com gibi okunabilir adlari ag uzerinde kullanilan IP adresleriyle eslestirir.',
+      'DNS, example.com gibi okunabilir adları ağ üzerinde kullanılan IP adresleriyle eşleştirir.',
   nextStepMessage:
-      'Temel akis tamamlandi: kablo, IP, gateway ve DNS birlikte internet baglantisini anlamli hale getirir.',
+      'Temel akış tamamlandı: kablo, IP, gateway ve DNS birlikte internet bağlantısını anlamlı hale getirir.',
   objects: [
     LevelObjectData(
       id: 'computer',
@@ -54,9 +54,9 @@ const level4 = LevelData(
       restEnd: LevelPoint(637, 348),
       target: LevelPoint(637, 348),
     ),
-    ipSelection: IpSelectionData(
-      question: 'Site adini IP adresine hangi servis cevirir?',
-      options: ['DNS Sunucusu', 'Ethernet Kablosu', 'Guvenlik Duvari'],
+    selection: SelectionGoalData(
+      question: 'Site adını IP adresine hangi servis çevirir?',
+      options: ['DNS Sunucusu', 'Ethernet Kablosu', 'Güvenlik Duvarı'],
       correctOption: 'DNS Sunucusu',
     ),
   ),
