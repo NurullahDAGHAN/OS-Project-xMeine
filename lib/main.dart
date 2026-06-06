@@ -7,6 +7,9 @@ import 'package:flame/game.dart';
 import 'data/auth_service.dart';
 import 'data/game_progress_controller.dart';
 import 'data/level_repository.dart';
+import 'data/player_progress_summary.dart';
+import 'data/player_streak.dart';
+import 'data/player_streak_preferences.dart';
 import 'data/progress_repository_provider.dart';
 import 'game/network_game.dart';
 import 'game/levels/level_data.dart';
@@ -14,6 +17,7 @@ import 'l10n/app_localizations.dart';
 import 'ui/landscape_hint_hud.dart';
 import 'ui/level_selection_panel.dart';
 import 'ui/login_screen.dart';
+import 'ui/player_progress_panel.dart';
 import 'ui/success_panel.dart';
 
 void main() {
@@ -31,7 +35,7 @@ class NetworkCableDemoApp extends StatelessWidget {
   const NetworkCableDemoApp({super.key});
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Network Cable Demo',
+      title: 'NetQues',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
@@ -150,6 +154,9 @@ class _GameScreenState extends State<GameScreen> {
   NetworkGame? _game;
   bool _restartQueued = false;
   late AppLanguage _language;
+  String? _userEmail;
+  final PlayerStreakPreferences _streakPreferences = PlayerStreakPreferences();
+  PlayerStreak _streak = const PlayerStreak.empty();
 
   AppStrings get _strings => stringsFor(_language);
 
@@ -161,6 +168,11 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   Future<void> _initializeGame() async {
+    final authService = AuthService();
+    await authService.initialize();
+    _userEmail = authService.getUserEmail();
+    _streak = await _streakPreferences.load(_userEmail);
+
     final progressRepository = await createProgressRepository();
     _progressController = GameProgressController(
       levelRepository: DartLevelRepository(language: _language),
@@ -170,11 +182,25 @@ class _GameScreenState extends State<GameScreen> {
     _game = NetworkGame(
       levels: _progressController.levels,
       language: _language,
-      onLevelCompleted: (_) => _progressController.completeSelectedLevel(),
+      onLevelCompleted: _handleLevelCompleted,
       onHintUsed: (_) => _progressController.recordHint(),
       onAttemptRecorded: (_) => _progressController.recordAttempt(),
     );
     _game!.levelIndex.value = _progressController.selectedLevelIndex;
+  }
+
+  Future<void> _handleLevelCompleted(String _) async {
+    await _progressController.completeSelectedLevel();
+    final nextStreak = await _streakPreferences.recordLessonCompleted(
+      _userEmail,
+    );
+    if (!mounted) {
+      _streak = nextStreak;
+      return;
+    }
+    setState(() {
+      _streak = nextStreak;
+    });
   }
 
   void _restart() {
@@ -301,6 +327,13 @@ class _GameScreenState extends State<GameScreen> {
         return AnimatedBuilder(
           animation: _progressController,
           builder: (context, _) {
+            final profile = PlayerProgressSummary.fromProgress(
+              snapshot: _progressController.snapshot!,
+              totalLevels: _progressController.levels.length,
+              userEmail: _userEmail,
+              streak: _streak,
+            );
+
             return Scaffold(
               body: SafeArea(
                 child: LayoutBuilder(
@@ -327,7 +360,11 @@ class _GameScreenState extends State<GameScreen> {
                             ),
                           ),
                           Expanded(
-                            child: _gamePlayArea(game: game, isLandscape: true),
+                            child: _gamePlayArea(
+                              game: game,
+                              isLandscape: true,
+                              profile: profile,
+                            ),
                           ),
                         ],
                       );
@@ -346,7 +383,11 @@ class _GameScreenState extends State<GameScreen> {
                           isMainMenu: false,
                         ),
                         Expanded(
-                          child: _gamePlayArea(game: game, isLandscape: false),
+                          child: _gamePlayArea(
+                            game: game,
+                            isLandscape: false,
+                            profile: profile,
+                          ),
                         ),
                       ],
                     );
@@ -360,7 +401,11 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
-  Widget _gamePlayArea({required NetworkGame game, required bool isLandscape}) {
+  Widget _gamePlayArea({
+    required NetworkGame game,
+    required bool isLandscape,
+    required PlayerProgressSummary profile,
+  }) {
     return LayoutBuilder(
       builder: (context, constraints) {
         final maxExpandedHudWidth =
@@ -396,6 +441,11 @@ class _GameScreenState extends State<GameScreen> {
               ),
             ),
             Positioned(
+              left: isLandscape ? 8 : 16,
+              top: isLandscape ? 8 : 16,
+              child: _profileButton(profile),
+            ),
+            Positioned(
               right: isLandscape ? 8 : 16,
               top: isLandscape ? 8 : 16,
               child: ValueListenableBuilder<int>(
@@ -408,22 +458,17 @@ class _GameScreenState extends State<GameScreen> {
                         return const SizedBox.shrink();
                       }
 
-                      return ValueListenableBuilder<String>(
-                        valueListenable: game.feedbackMessage,
-                        builder: (context, feedback, _) {
-                          return LandscapeHintHud(
-                            strings: _strings,
-                            levelKey: game.level.id,
-                            title: game.level.title,
-                            instruction: game.level.instruction,
-                            feedback: feedback,
-                            status: status,
-                            onRestart: _restart,
-                            onHint: game.showHint,
-                            onCloseApp: _closeApp,
-                            maxExpandedWidth: maxExpandedHudWidth,
-                          );
-                        },
+                      return LandscapeHintHud(
+                        strings: _strings,
+                        levelKey: game.level.id,
+                        title: game.level.title,
+                        instruction: game.level.instruction,
+                        feedback: game.level.learningNote,
+                        status: status,
+                        onRestart: _restart,
+                        onHint: game.showHint,
+                        onCloseApp: _closeApp,
+                        maxExpandedWidth: maxExpandedHudWidth,
                       );
                     },
                   );
@@ -433,6 +478,35 @@ class _GameScreenState extends State<GameScreen> {
           ],
         );
       },
+    );
+  }
+
+  Widget _profileButton(PlayerProgressSummary profile) {
+    return Material(
+      color: Colors.transparent,
+      child: OutlinedButton.icon(
+        onPressed: () => _openProfile(profile),
+        icon: const Icon(Icons.person_outline, size: 18),
+        label: Text(_strings.profile),
+        style: OutlinedButton.styleFrom(
+          backgroundColor: Colors.white.withValues(alpha: 0.94),
+          foregroundColor: const Color(0xFF2D736A),
+          side: const BorderSide(color: Color(0xFFCDE5DD)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          textStyle: const TextStyle(fontWeight: FontWeight.w900),
+        ),
+      ),
+    );
+  }
+
+  void _openProfile(PlayerProgressSummary profile) {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder:
+            (context) =>
+                PlayerProfileScreen(strings: _strings, profile: profile),
+      ),
     );
   }
 

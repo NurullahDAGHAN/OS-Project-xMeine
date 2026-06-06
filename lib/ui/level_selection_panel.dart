@@ -123,68 +123,48 @@ class LevelSelectionPanel extends StatelessWidget {
   }
 
   Widget _settingsButton(BuildContext context) {
-    return OutlinedButton.icon(
-      onPressed: () => _showSettingsDialog(context),
-      icon: const Icon(Icons.settings),
-      label: Text(strings.settings),
-      style: OutlinedButton.styleFrom(
-        foregroundColor: const Color(0xFF2F5F59),
-        side: const BorderSide(color: Color(0xFFCDE5DD)),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      ),
-    );
-  }
-
-  void _showSettingsDialog(BuildContext context) {
-    showDialog<void>(
-      context: context,
-      builder:
-          (context) => AlertDialog(
-            title: Text(strings.settings),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  strings.language,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w900),
+    return PopupMenuButton<AppLanguage>(
+      tooltip: strings.settings,
+      position: PopupMenuPosition.under,
+      constraints: const BoxConstraints(minWidth: 180, maxWidth: 240),
+      onSelected: onLanguageChanged,
+      itemBuilder:
+          (context) => [
+            PopupMenuItem<AppLanguage>(
+              enabled: false,
+              height: 32,
+              child: Text(
+                strings.language,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  color: const Color(0xFF263A36),
+                  fontWeight: FontWeight.w900,
                 ),
-                const SizedBox(height: 8),
-                ListTile(
-                  onTap: () {
-                    Navigator.pop(context);
-                    onLanguageChanged(AppLanguage.turkish);
-                  },
-                  title: Text(strings.turkish),
-                  trailing:
-                      language == AppLanguage.turkish
-                          ? const Icon(Icons.check, color: Color(0xFF2D736A))
-                          : null,
-                  contentPadding: EdgeInsets.zero,
-                ),
-                ListTile(
-                  onTap: () {
-                    Navigator.pop(context);
-                    onLanguageChanged(AppLanguage.english);
-                  },
-                  title: Text(strings.english),
-                  trailing:
-                      language == AppLanguage.english
-                          ? const Icon(Icons.check, color: Color(0xFF2D736A))
-                          : null,
-                  contentPadding: EdgeInsets.zero,
-                ),
-              ],
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text(strings.close),
               ),
-            ],
-          ),
+            ),
+            CheckedPopupMenuItem<AppLanguage>(
+              value: AppLanguage.turkish,
+              checked: language == AppLanguage.turkish,
+              height: 40,
+              child: Text(
+                strings.turkish,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            CheckedPopupMenuItem<AppLanguage>(
+              value: AppLanguage.english,
+              checked: language == AppLanguage.english,
+              height: 40,
+              child: Text(
+                strings.english,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+      child: _SettingsButtonFace(label: strings.settings),
     );
   }
 
@@ -212,6 +192,41 @@ class LevelSelectionPanel extends StatelessWidget {
               ),
             ],
           ),
+    );
+  }
+}
+
+class _SettingsButtonFace extends StatelessWidget {
+  const _SettingsButtonFace({required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 42,
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color(0xFFCDE5DD)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.settings, size: 18, color: Color(0xFF2F5F59)),
+          const SizedBox(width: 8),
+          Text(
+            label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+              color: const Color(0xFF2F5F59),
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
