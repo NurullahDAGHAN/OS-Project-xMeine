@@ -1,87 +1,112 @@
 # Login Sistemi - Uygulama Rehberi
 
-## ✅ Yapılan Değişiklikler
+Bu dosya NetQues içindeki mevcut login, kayıt ve oturum akışını özetler.
 
-### 1. **Bağımlılıklar** (`pubspec.yaml`)
+## Yapılan Değişiklikler
+
+### 1. Bağımlılıklar
+
+`pubspec.yaml` içinde login ve veri saklama için şu paketler kullanılıyor:
+
 ```yaml
 shared_preferences: ^2.2.2
-```
-- Local cihazda giriş durumunu tutmak için eklendi
-
-### 2. **AuthService** (`lib/data/auth_service.dart`)
-Özellikler:
-- ✅ Email + Şifre ile kayıt
-- ✅ Email + Şifre ile giriş
-- ✅ Email doğrulaması
-- ✅ Minimum 4 karakter şifre
-- ✅ Duplicate email kontrolü
-- ✅ SharedPreferences ile veri saklama
-- ✅ Giriş durumu takibi
-- ✅ Çıkış işlemi
-
-### 3. **LoginScreen** (`lib/ui/login_screen.dart`)
-Özellikler:
-- 🎨 Modern UI (Material Design 3)
-- ✅ Giriş modu
-- ✅ Kayıt modu
-- ✅ Şifre göster/gizle
-- ✅ Hata mesajları
-- ✅ Loading durumu
-- ✅ Form validasyonu
-
-### 4. **Main.dart Güncellemeleri**
-Değişiklikler:
-- `AuthWrapper` widget'ı eklendi (giriş durumunu yönetir)
-- Login başarılı → GameScreen göster
-- Çıkış → LoginScreen göster
-- GameScreen'e Çıkış butonu eklendi (AppBar'da)
-
-## 🔄 Akış
-
-```
-App Başlangıcı
-    ↓
-AuthWrapper (giriş durumunu kontrol)
-    ├─ Giriş yapılı değilse → LoginScreen
-    │   ├─ Giriş Yap
-    │   ├─ Kayıt Ol
-    │   └─ Giriş Başarı → GameScreen
-    │
-    └─ Giriş yapılı ise → GameScreen
-        └─ Çıkış Yap → LoginScreen
+sqflite: ^2.4.2
+crypto: ^3.0.3
 ```
 
-## 📝 Test Kullanıcıları
+- `shared_preferences`: Oturum durumu, aktif kullanıcı, avatar ve seri bilgisi için.
+- `sqflite`: Kullanıcı tablosu ve progress verisi için.
+- `crypto`: Şifreleri SHA-256 hash'e çevirmek için.
 
-Şu adresleri test edebilirsiniz:
-- **Email:** test@example.com
-- **Şifre:** 1234
+### 2. AuthService
 
-## ⚙️ Kurulum Adımları
+Dosya: `lib/data/auth_service.dart`
 
-1. Bağımlılıkları kur:
+Mevcut özellikler:
+
+- Email + şifre ile kayıt.
+- Email + şifre ile giriş.
+- Email format kontrolü.
+- Minimum 4 karakter şifre kontrolü.
+- Duplicate email kontrolü SQLite unique constraint üzerinden yapılıyor.
+- Şifreler `password_hash` alanına SHA-256 hash olarak kaydediliyor.
+- Giriş durumu SharedPreferences ile takip ediliyor.
+- Çıkış işlemi aktif oturum bilgisini temizliyor.
+
+### 3. DatabaseHelper
+
+Dosya: `lib/data/database_helper.dart`
+
+`network_cable_demo.db` içinde şu tabloyu oluşturur:
+
+```sql
+CREATE TABLE users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  email TEXT UNIQUE NOT NULL,
+  password_hash TEXT NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+)
+```
+
+### 4. LoginScreen
+
+Dosya: `lib/ui/login_screen.dart`
+
+Mevcut özellikler:
+
+- Giriş modu.
+- Hesap oluşturma modu.
+- Şifre göster/gizle.
+- Loading durumu.
+- Form validasyonu.
+- Hata ve başarı mesajları.
+- Türkçe/İngilizce metin desteği.
+
+### 5. Main.dart Akışı
+
+Dosya: `lib/main.dart`
+
+- `AuthWrapper` açılışta oturum durumunu kontrol eder.
+- Oturum yoksa `LoginScreen` gösterilir.
+- Giriş başarılıysa `GameScreen` açılır.
+- Oyun ekranından çıkış yapıldığında oturum kapatılır ve login ekranına dönülür.
+- Dil seçimi login ve oyun ekranı arasında korunur.
+
+## Uygulama Akışı
+
+```txt
+App başlangıcı
+  -> AuthWrapper
+    -> Oturum yoksa LoginScreen
+      -> Giriş yap veya hesap oluştur
+      -> Başarılı giriş sonrası GameScreen
+    -> Oturum varsa GameScreen
+      -> Çıkış yapıldığında LoginScreen
+```
+
+## Kurulum ve Çalıştırma
+
 ```bash
 flutter pub get
-```
-
-2. Uygulamayı çalıştır:
-```bash
 flutter run
 ```
 
-3. İlk kez kullanırken "Hesap Oluştur" tıkla
+İlk kullanımda önce "Hesap Oluştur" ile yeni kullanıcı açılır, ardından aynı email/şifre ile giriş yapılır.
 
-## 🔐 Güvenlik Notları
+## Güvenlik Notları
 
-- ⚠️ Şu anda şifreler plain text olarak kaydediliyor (demo amaçlı)
-- 🔒 Production'da şifreleme eklenmeli
-- 🔒 Backend API ile entegrasyon yapılmalı
+- Şifreler plain text saklanmıyor; SHA-256 hash olarak kaydediliyor.
+- Bu yapı demo/prototip için yeterli kabul edilebilir.
+- Production ortamında salt'lı ve yavaş parola hashleme algoritmaları kullanılmalı.
+- Backend API, parola sıfırlama, rate limit ve hesap doğrulama akışları eklenmeli.
+- SharedPreferences oturum takibi için pratik olsa da hassas token saklama gerektiren production yapılarında daha güvenli depolama tercih edilmeli.
 
-## 🎯 Gelecek İyileştirmeler
+## Gelecek İyileştirmeler
 
-- [ ] Şifre hashleme (bcrypt/argon2)
-- [ ] Backend API entegrasyonu
-- [ ] Google/Apple login
-- [ ] Şifre sıfırlama
-- [ ] İki aşamalı kimlik doğrulama
-- [ ] Öğrenci/Öğretmen rolleri
+- Salt'lı bcrypt/argon2 tabanlı parola hashleme.
+- Backend API entegrasyonu.
+- Google/Apple login.
+- Şifre sıfırlama.
+- Email doğrulama.
+- Öğrenci/öğretmen rolleri.
+- Kullanıcıya bağlı bulut senkronizasyonu.
