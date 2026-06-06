@@ -1,27 +1,40 @@
 # Documentation Index
 
-This folder contains the English planning documents for the networking education game.
+This folder contains the planning and reference documents for NetQues, the Flutter + Flame networking education game.
 
 ## Documents
 
 ```txt
 PRODUCT_VISION.md
-High-level purpose, educational approach, daily-life networking concept, and portrait hyper-casual direction.
+High-level purpose, target learners, educational approach, and product direction.
 
 GAME_DESIGN.md
-Level design rules, current levels, future level ideas, feedback style, and UI layout principles.
+Level design rules, interaction model, feedback style, and UI layout principles.
 
 TECHNICAL_PLAN.md
-Current stack, target stack, Flutter/Flame reasoning, SQLite migration direction, and code structure.
+Current stack, architecture notes, Flutter/Flame reasoning, and implementation direction.
 
 SQLITE_DATA_MODEL.md
-Detailed SQLite schema proposal for levels, goals, options, and player progress.
+SQLite schema notes for levels, goals, options, users, and player progress.
 
 ROADMAP.md
 Short-term, medium-term, and long-term development roadmap.
 ```
 
-## Main Product Direction
+## Current Implementation Snapshot
 
-The game teaches computer networking through everyday tasks. It uses a portrait-first, hyper-casual mobile game format to make technical concepts feel approachable for students.
+- App name: NetQues.
+- Stack: Flutter, Flame, sqflite, shared_preferences, crypto.
+- Implemented flow: login/register, level selection, 7 playable networking levels, progress persistence, profile screen, badges, avatar selection, streak tracking, and Turkish/English text support.
+- Implemented topics: Ethernet, IP address, default gateway, DNS, subnet mask, DHCP, and firewall rules.
+- Tests cover level data, progress persistence, progress controller behavior, player summary, streak logic, and level selection layout.
 
+## Related Root Documents
+
+```txt
+README.md
+Project overview, run commands, current features, and known limits.
+
+LOGIN_SYSTEM_README.md
+Login/register implementation details and security notes.
+```
