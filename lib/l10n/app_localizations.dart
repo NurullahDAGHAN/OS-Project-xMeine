@@ -57,6 +57,34 @@ class AppStrings {
     required this.accountCreated,
     required this.registerFailed,
     required this.invalidLogin,
+    required this.profile,
+    required this.myBadges,
+    required this.tasks,
+    required this.completedLevels,
+    required this.tasksCompleted,
+    required this.signedInTask,
+    required this.completeTwoLevelsTask,
+    required this.completeFourLevelsTask,
+    required this.completeAllLevelsTask,
+    required this.twoTasksBadge,
+    required this.fourTasksBadge,
+    required this.allLevelsBadge,
+    required this.earned,
+    required this.lockedBadge,
+    required this.profilePicture,
+    required this.chooseProfilePicture,
+    required this.badgeShowcase,
+    required this.badgeRequirementTitle,
+    required this.twoTasksBadgeRequirement,
+    required this.fourTasksBadgeRequirement,
+    required this.allLevelsBadgeRequirement,
+    required this.studyStreak,
+    required this.currentStreak,
+    required this.longestStreak,
+    required this.recentDays,
+    required this.streakActiveToday,
+    required this.streakNeedsLesson,
+    required this.dayLabel,
   });
 
   final String appTitle;
@@ -111,10 +139,38 @@ class AppStrings {
   final String accountCreated;
   final String registerFailed;
   final String invalidLogin;
+  final String profile;
+  final String myBadges;
+  final String tasks;
+  final String completedLevels;
+  final String tasksCompleted;
+  final String signedInTask;
+  final String completeTwoLevelsTask;
+  final String completeFourLevelsTask;
+  final String completeAllLevelsTask;
+  final String twoTasksBadge;
+  final String fourTasksBadge;
+  final String allLevelsBadge;
+  final String earned;
+  final String lockedBadge;
+  final String profilePicture;
+  final String chooseProfilePicture;
+  final String badgeShowcase;
+  final String badgeRequirementTitle;
+  final String twoTasksBadgeRequirement;
+  final String fourTasksBadgeRequirement;
+  final String allLevelsBadgeRequirement;
+  final String studyStreak;
+  final String currentStreak;
+  final String longestStreak;
+  final String recentDays;
+  final String streakActiveToday;
+  final String streakNeedsLesson;
+  final String dayLabel;
 }
 
 const _tr = AppStrings(
-  appTitle: 'Ağ Eğitimi Oyunu',
+  appTitle: 'NetQues',
   settings: 'Ayarlar',
   language: 'Dil',
   turkish: 'Türkçe',
@@ -167,10 +223,38 @@ const _tr = AppStrings(
   accountCreated: 'Hesap başarıyla oluşturuldu! Lütfen giriş yapın.',
   registerFailed: 'Kayıt başarısız. E-posta geçerli mi veya zaten kayıtlı mı?',
   invalidLogin: 'E-posta veya şifre yanlış. Lütfen kontrol edin.',
+  profile: 'Profil',
+  myBadges: 'Rozetlerim',
+  tasks: 'Görevler',
+  completedLevels: 'Tamamlanan bölüm',
+  tasksCompleted: 'Görev tamamlandı',
+  signedInTask: 'Uygulamaya giriş yap',
+  completeTwoLevelsTask: '2 bölüm tamamla',
+  completeFourLevelsTask: '4 bölüm tamamla',
+  completeAllLevelsTask: 'Tüm bölümleri tamamla',
+  twoTasksBadge: '2 görev rozeti',
+  fourTasksBadge: '4 görev rozeti',
+  allLevelsBadge: 'Tüm bölümler rozeti',
+  earned: 'Kazanıldı',
+  lockedBadge: 'Kilitli',
+  profilePicture: 'Profil resmi',
+  chooseProfilePicture: 'Profil resmini seç',
+  badgeShowcase: 'Rozet vitrini',
+  badgeRequirementTitle: 'Rozet şartı',
+  twoTasksBadgeRequirement: 'Bu rozeti kazanmak için 2 görev tamamla.',
+  fourTasksBadgeRequirement: 'Bu rozeti kazanmak için 4 görev tamamla.',
+  allLevelsBadgeRequirement: 'Bu rozeti kazanmak için tüm bölümleri tamamla.',
+  studyStreak: 'Günlük seri',
+  currentStreak: 'Mevcut seri',
+  longestStreak: 'En uzun seri',
+  recentDays: 'Son 7 gün',
+  streakActiveToday: 'Bugünkü ders tamamlandı',
+  streakNeedsLesson: 'Seriyi korumak için bugün 1 ders tamamla',
+  dayLabel: 'gün',
 );
 
 const _en = AppStrings(
-  appTitle: 'Network Learning Game',
+  appTitle: 'NetQues',
   settings: 'Settings',
   language: 'Language',
   turkish: 'Turkish',
@@ -223,6 +307,34 @@ const _en = AppStrings(
   accountCreated: 'Account created successfully. Please sign in.',
   registerFailed: 'Registration failed. Check the email or use another one.',
   invalidLogin: 'Email or password is incorrect. Please check and try again.',
+  profile: 'Profile',
+  myBadges: 'My badges',
+  tasks: 'Tasks',
+  completedLevels: 'Completed levels',
+  tasksCompleted: 'Tasks completed',
+  signedInTask: 'Sign in to the app',
+  completeTwoLevelsTask: 'Complete 2 levels',
+  completeFourLevelsTask: 'Complete 4 levels',
+  completeAllLevelsTask: 'Complete all levels',
+  twoTasksBadge: '2-task badge',
+  fourTasksBadge: '4-task badge',
+  allLevelsBadge: 'All-levels badge',
+  earned: 'Earned',
+  lockedBadge: 'Locked',
+  profilePicture: 'Profile picture',
+  chooseProfilePicture: 'Choose profile picture',
+  badgeShowcase: 'Badge showcase',
+  badgeRequirementTitle: 'Badge requirement',
+  twoTasksBadgeRequirement: 'Complete 2 tasks to earn this badge.',
+  fourTasksBadgeRequirement: 'Complete 4 tasks to earn this badge.',
+  allLevelsBadgeRequirement: 'Complete every level to earn this badge.',
+  studyStreak: 'Daily streak',
+  currentStreak: 'Current streak',
+  longestStreak: 'Longest streak',
+  recentDays: 'Last 7 days',
+  streakActiveToday: 'Today\'s lesson is complete',
+  streakNeedsLesson: 'Complete 1 lesson today to keep the streak',
+  dayLabel: 'days',
 );
 
 AppStrings stringsFor(AppLanguage language) {

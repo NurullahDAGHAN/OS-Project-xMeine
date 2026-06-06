@@ -1,11 +1,11 @@
 {
-    "name": "network_cable_demo",
-    "short_name": "network_cable_demo",
+    "name": "NetQues",
+    "short_name": "NetQues",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "NetQues",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

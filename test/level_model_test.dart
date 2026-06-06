@@ -27,4 +27,12 @@ void main() {
       expect(goal.options, contains(goal.correctOption), reason: level.id);
     }
   });
+
+  test('learning notes are separate from character prompts', () {
+    for (final level in levels) {
+      expect(level.learningNote, isNotEmpty, reason: level.id);
+      expect(level.learningNote, isNot(level.dialogue), reason: level.id);
+      expect(level.learningNote, isNot(level.hintMessage), reason: level.id);
+    }
+  });
 }
