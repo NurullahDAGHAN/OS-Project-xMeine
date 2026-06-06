@@ -2,34 +2,56 @@
 
 ## Design Pillars
 
-The game should follow these pillars:
+NetQues should stay small, clear, and practical. The player should understand each task quickly, try it immediately, and leave with one networking idea that feels connected to daily life.
 
 ```txt
 Simple interaction
 Clear visual cause and effect
-Short educational message
+Short educational feedback
 One concept per level
-Portrait-first mobile layout
-Hyper-casual pacing
+Mobile-first layout
 Low penalty for mistakes
+Replayable learning loop
 ```
+
+## Core Loop
+
+Each level follows the same learning rhythm:
+
+```txt
+Read one short task
+Interact with the scene
+Receive immediate feedback
+Use a hint if needed
+Complete the level
+Read the learning note
+Unlock the next concept
+```
+
+The Flame scene handles the interactive object work. Flutter overlays handle the level selector, hint HUD, profile entry point, and success panel.
 
 ## Level Structure
 
-Each level should include:
+Each level includes:
 
 ```txt
+Stable id
+Task type
+Scene theme
 Title
 Instruction
 Short dialogue
-Playable task
 Hint message
+Connected feedback
 Success message
 Learning note
-Next step
+Next step message
+Scene objects
+Connection goal
+Optional selection goal
 ```
 
-A level should be understandable within a few seconds. If a student cannot understand what to do after reading one short sentence, the level is too complex.
+Level definitions currently live in Dart files under `lib/game/levels/`. Turkish text is the source level data, and English copies are generated through `lib/l10n/app_localizations.dart`.
 
 ## Current Levels
 
@@ -47,17 +69,10 @@ Player action:
 Drag the Ethernet cable plug to the modem port.
 ```
 
-Feedback:
-
-```txt
-Wrong drop: explain that the cable must be placed into the Ethernet port.
-Correct drop: modem lights turn on, computer screen becomes connected, success panel opens.
-```
-
 Learning outcome:
 
 ```txt
-The student understands that a cable is a physical connection between the computer and the modem/router.
+The student understands that a cable creates the physical network connection between a computer and a modem/router.
 ```
 
 ### Level 2: IP Address
@@ -65,104 +80,99 @@ The student understands that a cable is a physical connection between the comput
 Concept:
 
 ```txt
-A device needs a compatible IP address to communicate on a local network.
+A device needs an IP address that fits the local network.
 ```
 
 Player action:
 
 ```txt
-Choose the correct IP address from multiple options.
+Drag the correct IP address card to the computer.
 ```
 
-Current correct answer:
+Correct answer:
 
 ```txt
 192.168.1.24
 ```
-
-Reason:
-
-```txt
-The modem is presented as being on the 192.168.1.x network. A computer on the same local network should use an address in that range.
-```
-
-Wrong answers:
-
-```txt
-10.0.0.9
-172.16.4.2
-```
-
-These are valid private IP ranges in real networking, but they do not match the current local network in this level. This lets the level teach that an IP address must fit the network, not only look like a valid address.
-
-## Future Level Ideas
 
 ### Level 3: Default Gateway
 
 Concept:
 
 ```txt
-The gateway is the device that sends traffic outside the local network.
+The gateway is the exit point from the local network to other networks.
 ```
 
-Possible task:
+Player action:
 
 ```txt
-Select the modem/router as the default gateway for the computer.
+Choose the modem/router address as the default gateway.
 ```
 
-Real-life analogy:
+Correct answer:
 
 ```txt
-The gateway is like the exit door from the local room to the outside world.
+192.168.1.1 (Modem)
 ```
 
-### Level 4: DNS
+### Level 4: DNS Server
 
 Concept:
 
 ```txt
-DNS translates website names into IP addresses.
+DNS translates readable website names into IP addresses.
 ```
 
-Possible task:
+Player action:
 
 ```txt
-Match example.com to a DNS lookup result.
+Choose the DNS server card.
 ```
 
-Real-life analogy:
+Correct answer:
 
 ```txt
-DNS is like a contact list that turns names into numbers.
+DNS Sunucusu
 ```
 
-### Level 5: Wi-Fi Signal
+### Level 5: Subnet Mask
 
 Concept:
 
 ```txt
-Wireless connection quality depends on distance and obstacles.
+The subnet mask tells the computer which addresses are local.
 ```
 
-Possible task:
+Player action:
 
 ```txt
-Move the laptop closer to the router or remove an obstacle.
+Choose the correct mask for a 192.168.1.x network.
 ```
 
-### Level 6: Packet Route
+Correct answer:
+
+```txt
+255.255.255.0
+```
+
+### Level 6: DHCP Service
 
 Concept:
 
 ```txt
-Data travels in small packets through network devices.
+DHCP automatically distributes network settings.
 ```
 
-Possible task:
+Player action:
 
 ```txt
-Guide packet bubbles from the computer to the website through modem, ISP, and server.
+Choose the service that gives IP, mask, gateway, and DNS settings automatically.
+```
+
+Correct answer:
+
+```txt
+DHCP Sunucusu
 ```
 
 ### Level 7: Firewall
@@ -173,41 +183,67 @@ Concept:
 A firewall allows or blocks traffic according to rules.
 ```
 
-Possible task:
+Player action:
 
 ```txt
-Allow browser traffic but block suspicious traffic.
+Choose the rule that allows web access.
+```
+
+Correct answer:
+
+```txt
+HTTP/HTTPS trafigine izin ver
 ```
 
 ## Failure Design
 
-Failure should be soft and educational.
-
-The player should not lose lives or be punished heavily. A wrong action should:
+Failure should be soft and educational. A wrong action should:
 
 ```txt
-Return the object to a safe state
-Show a short hint
-Highlight the correct area if useful
+Return the object or card to a safe state
+Show short feedback
+Increase the attempt count
+Keep the player in the same level
 Allow immediate retry
 ```
+
+Hints should help the player think about the concept instead of only revealing the answer.
+
+## Progression
+
+The first level is unlocked by default. Completing a level marks it as completed, records the last played level, and unlocks the next level. The level selection panel shows locked, open, completed, and selected states.
+
+Progress is user-based on non-web platforms through SQLite. Web uses an in-memory progress repository for the prototype.
+
+## Profile Layer
+
+The profile screen supports:
+
+```txt
+Completed level count
+Task progress
+Badge progress
+Avatar selection
+Daily streak display
+```
+
+These features are motivational wrappers around the core learning loop. They should stay lightweight and should not distract from level clarity.
 
 ## UI Layout
 
 Portrait layout should generally use:
 
 ```txt
-Top: task panel and status
+Top: level selector and settings
 Middle: interactive scene
-Bottom: action choices or draggable objects
-Overlay: success panel
+Overlay: hint HUD, profile button, success panel
 ```
 
-This matches mobile hyper-casual rhythm while keeping the educational message visible.
+Landscape layout uses a side level-selection panel and keeps the game scene readable. Both layouts should avoid long text blocks during play.
 
 ## Text Guidelines
 
-Text must be short.
+Text must be short and practical.
 
 Good:
 
@@ -221,5 +257,18 @@ Too long:
 In order for devices to communicate at Layer 3 of the OSI model, the host must have an address within the same subnet as its default gateway...
 ```
 
-Formal terminology can appear later, but the first explanation should be practical.
+Formal terminology can appear in the learning note, but the first instruction should always be action-oriented.
 
+## Future Level Ideas
+
+Possible future levels:
+
+```txt
+Wi-Fi signal strength
+LAN vs internet
+Public vs private IP
+Packet route
+Basic troubleshooting
+```
+
+New levels should reuse the same short interaction pattern unless a new mechanic clearly improves the concept.

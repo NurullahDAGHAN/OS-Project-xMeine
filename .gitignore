@@ -8,6 +8,8 @@
 .build/
 .buildlog/
 .history
+.lh/*
+!.lh/.lhignore
 .svn/
 .swiftpm/
 migrate_working_dir/
@@ -32,6 +34,16 @@ migrate_working_dir/
 .pub/
 /build/
 /coverage/
+
+# Local runtime data
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Local environment files
+.env
+.env.*
 
 # Symbolication related
 app.*.symbols

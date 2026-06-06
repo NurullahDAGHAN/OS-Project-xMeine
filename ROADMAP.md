@@ -5,101 +5,109 @@
 The current prototype includes:
 
 ```txt
-Flutter + Flame project
-Portrait-friendly scaling
-Level 1: Ethernet cable connection
-Level 2: IP address selection
-HUD and success panel
-Basic visual effects
-Android APK release build
-Web build for testing
-Asset folder structure
+Flutter 3.44 / Dart 3.12 project
+Flame-based interactive game scene
+Seven-level networking curriculum
+Cable drag interaction
+Selection-card drag interaction
+Level selection panel with locked/completed states
+SQLite-backed user progress on non-web targets
+In-memory progress repository for web prototype runs
+Email/password login
+SharedPreferences-backed session, avatar, and streak data
+Turkish and English text support
+Profile screen with tasks, badges, and daily streaks
+HUD, hint flow, success panel, and final-level actions
+Android, iOS, web, Linux, macOS, and Windows project folders
+Automated model, repository, controller, layout, profile, and streak tests
 ```
 
-## Short-Term Plan
+## Completed Curriculum
 
-### 1. Improve Existing Levels
-
-Focus:
-
-```txt
-Better visual consistency
-Clearer object placement
-More polished cable and port visuals
-Better phone layout testing
-Cleaner success flow
-```
-
-Reason:
-
-```txt
-Before adding many levels, the first two levels should feel correct and understandable.
-```
-
-### 2. Add SQLite
-
-Focus:
-
-```txt
-Add local database
-Move level metadata to seed data
-Store completion state
-Unlock next level after success
-Track attempts and hint usage
-```
-
-Reason:
-
-```txt
-SQLite will let the app manage level progression and make future level additions easier.
-```
-
-### 3. Add Level Selection Screen
-
-Focus:
-
-```txt
-Show unlocked and locked levels
-Show completed levels
-Allow replay
-Display simple concept names
-```
-
-Example:
+The current learning path is:
 
 ```txt
 1. Ethernet Connection
 2. IP Address
-3. Gateway
-4. DNS
+3. Default Gateway
+4. DNS Server
+5. Subnet Mask
+6. DHCP Service
+7. Firewall
 ```
 
-### 4. Add Gateway Level
+## Short-Term Plan
 
-Learning goal:
+### 1. Polish Existing Levels
+
+Focus:
 
 ```txt
-The default gateway is the route from local network to outside networks.
+Improve visual consistency
+Replace rough code-drawn placeholders gradually
+Clarify card and drop-zone placement
+Tune phone and tablet layouts
+Make hints more concept-focused
+Keep success flow fast
 ```
 
-Possible task:
+Reason:
 
 ```txt
-Select the modem as the gateway for the computer.
+The seven-level path exists, so the next value is making the learning loop feel clearer and more finished.
 ```
 
-### 5. Add DNS Level
+### 2. Stabilize Local Persistence
 
-Learning goal:
+Focus:
 
 ```txt
-DNS turns website names into IP addresses.
+Keep user-specific progress reliable
+Document SQLite database ownership clearly
+Add migrations before schema changes
+Persist web progress if web becomes a real target
+Keep test coverage around unlock and last-played behavior
 ```
 
-Possible task:
+Reason:
 
 ```txt
-Match a website name to the DNS server and then to an IP result.
+Progress data is now part of the product experience. Regressions here directly affect student motivation.
+```
+
+### 3. Improve Login and Profile
+
+Focus:
+
+```txt
+Better validation messages
+Password reset placeholder or guidance
+Clearer profile task and badge copy
+Avatar persistence checks per user
+Daily streak edge-case tests
+```
+
+Reason:
+
+```txt
+The app now has a user layer, so account friction should stay low and prototype security boundaries should be explicit.
+```
+
+### 4. Move Level Metadata Toward Seed Data
+
+Focus:
+
+```txt
+Keep Dart LevelData models as the game-facing API
+Prepare SQLite tables for level metadata
+Seed level text and selection options
+Avoid mixing Flame scene code with database queries
+```
+
+Reason:
+
+```txt
+Hardcoded level files are acceptable for seven levels, but a larger curriculum will be easier to maintain with structured seed data.
 ```
 
 ## Medium-Term Plan
@@ -110,19 +118,20 @@ Replace code-drawn placeholders with final visual assets:
 
 ```txt
 computer
-modem
-cable
-character
+modem/router
+Ethernet cable
+helper character
 room tiles
-UI icons
+selection cards
+profile/avatar graphics
 success effects
 ```
 
 The asset style should remain:
 
 ```txt
-pastel
 friendly
+pastel
 isometric
 simple
 readable on mobile
@@ -148,38 +157,37 @@ animated hints
 highlighted target areas
 short concept cards
 replay explanation button
+wrong-answer explanations per option
 ```
 
 ## Long-Term Plan
 
 ### Larger Curriculum
 
-Possible curriculum sequence:
+Possible future sequence:
 
 ```txt
-Physical connection
-IP address
-Subnet idea
-Default gateway
-DNS
 Wi-Fi signal
-Packet route
-Firewall
 LAN vs internet
 Public vs private IP
+Packet route
 Basic troubleshooting
+Ports and services
+Safe password and account habits
+Classroom network scenario
 ```
 
 ### Student Progress
 
-Track:
+Potential additions:
 
 ```txt
-completed levels
-wrong attempts
-hint usage
-time to complete
-concept mastery
+best completion time
+most common wrong option
+restart count
+concept mastery status
+local progress export
+teacher-visible summary
 ```
 
 ### Teacher/Instructor Possibilities
@@ -191,9 +199,10 @@ classroom mode
 progress export
 custom level packs
 teacher dashboard
+assignment links
 ```
 
-These should not be built until the core learning loop is proven.
+These should not be built until the core learning loop is polished and validated.
 
 ## Product Risk
 
@@ -204,16 +213,17 @@ Too much text
 Levels becoming lectures instead of games
 Network concepts becoming too abstract too early
 Visual style becoming inconsistent
-Adding database complexity before level design is stable
+Login/security expectations exceeding prototype scope
+Database schema changing without migrations
 ```
 
 Mitigation:
 
 ```txt
 Keep each level small
-Test on phone screen early
+Test on phone screens early
 Use one concept per level
-Add SQLite after the level model is stable
-Keep assets consistent
+Keep the account layer clearly documented
+Add migrations before schema changes
+Keep automated tests around progress behavior
 ```
-
