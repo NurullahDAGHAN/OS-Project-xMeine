@@ -50,11 +50,17 @@ NetQues was designed according to the ADDIE instructional design model: Analysis
 
 ### 2.3. Development
 
-- **Framework:** Flutter is used for the application layer.
-- **Game Engine:** Flame is used for the interactive game scene.
+- **Architecture & Framework:** The cross-platform application layer is programmed using the Flutter SDK and Dart, leveraging Object-Oriented Programming (OOP) principles to enforce a clean, maintainable, and reactive code architecture.
+  
+- **Game Engine Integration:** The interactive, tactile gameplay layers—including the isometric room environments, cable dragging mechanisms, and success animations—are powered by the Flame Engine, embedded directly within the Flutter widget tree.
+  
 - **Local Persistence:** SQLite stores users and level progress. SharedPreferences stores lightweight user preferences.
-- **Audio:** Sound effects are handled with `audioplayers`, and voice reading is handled with `flutter_tts`.
-- **Localization:** Turkish and English text support is provided through the local localization layer.
+  
+- **Audio & Multimedia Optimization:** To prevent runtime memory leaks, sound effects are optimized via audioplayers, and synchronized text-to-speech voice reading is processed natively through flutter_tts.
+  
+- **Localization Layer:** Native multilingual infrastructure provides full, contextual Turkish and English text and asset support across all interfaces and data models.
+  
+- **State Management:** Module completion flags, dynamic XP calculations, real-time visual color transitions, and character level advancements are handled entirely by Flutter's reactive state layer, ensuring seamless UI re-rendering.
 
 ### 2.4. Implementation
 
