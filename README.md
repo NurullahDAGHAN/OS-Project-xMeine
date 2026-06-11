@@ -42,9 +42,11 @@ NetQues was designed according to the ADDIE instructional design model: Analysis
 
 ### 2.2. Design
 
-- **Pedagogical Design:** The application uses small-step learning and immediate reinforcement. Each level gives instant feedback after correct or incorrect actions.
-- **Gamification Design:** Stars, badges, daily streaks, profile customization, certificates, and replayable levels are used to increase learner motivation.
-- **Interface Design:** The interface is mobile-friendly and supports both portrait and landscape layouts. The final UI was simplified by removing extra support screens that were not essential to the current learning flow.
+- **Pedagogical & Conceptual Design:** The application leverages small-step learning paradigms integrated with immediate feedback mechanism loops. A primary focus is placed on transforming abstract computer science concepts into concrete, sensory representations (Piaget's concrete operational stage schemas). By interacting with spatial components in a virtual environment, invisible systems become fully visible and structural to the learner.
+  
+- **Gamification & Reinforcement Design (Skinner’s Operant Conditioning):** To sustain high learner motivation, a multi-tier reinforcement ecosystem consisting of stars, badges, daily streaks, and profile certificates is embedded. To satisfy the need for immediate positive reinforcement, correct actions instantly trigger dynamic multi-sensory feedback, including playful sound effects and an animated avatar jump mechanic that visually celebrates the user's success.
+  
+- **Interface & UX Design:** The interface is mobile-friendly and supports both portrait and landscape layouts natively. To prevent cognitive overload, the final UI was streamlined by removing non-essential auxiliary screens, focusing the user's attention entirely on the active learning simulation flow.
 
 ### 2.3. Development
 
