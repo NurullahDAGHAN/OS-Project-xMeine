@@ -265,4 +265,4 @@ flutter build web
 
 ## 11. Conclusion
 
-NetQues is currently a complete educational game prototype with two learning modules, local progress tracking, gamification, replayable star improvement, profile rewards, audio feedback, and bilingual support. The project demonstrates how Computer Networks and Operating Systems concepts can be transformed into interactive micro-learning tasks for beginner learners.
+NetQues stands as a complete, pedagogically grounded educational mobile game prototype that successfully bridges the gap between complex computer science theories and active learning. Driven by the ADDIE framework and powered by Flutter and Flame, the application effectively demonstrates how Computer Networks and Operating Systems concepts can be transformed into accessible, highly engaging micro-learning tasks for young learners.
