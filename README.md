@@ -1,7 +1,9 @@
 # NetQues - Ağ Temelleri Eğitim Oyunu
 
 Team Information
+
 Team Number: TEAM-5
+
 Developers:
 Emre Çoban
 Muazzez Şen
