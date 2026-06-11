@@ -1,64 +1,223 @@
-# NetQues - Ağ Temelleri Eğitim Oyunu
-YTU-Computer Science
+# BTO3102 TEAM 5 NETQUES MOBILE APPLICATION DEVELOPMENT REPORT
 
-Team Information
+## Project File
 
-Team Number: TEAM-5
-Developers: Emre Çoban 
-            Muazzez Şen
-            Esranur Aydın
-            Nurullah Dağhan 
-            İdris Baki Uzun
+**Project Name:** NetQues  
+**Project Type:** Mobile educational game  
+**Technology Stack:** Flutter, Flame, Dart, SQLite, SharedPreferences  
+**GitHub Repository:** Connected through the active project remote
 
-NetQues; Flutter ve Flame oyun motorları ile geliştirilmiş, ilkokul ve ortaokul seviyesindeki öğrencilere hitap eden yenilikçi bir eğitsel mobil oyundur. İzometrik bir oda sahnesi üzerinde ilerleyen oyunda oyuncular; önce Ethernet kablosunu doğru porta bağlar, sonraki aşamalarda ise doğru ağ ayar kartlarını bilgisayara sürükleyip bırakarak ilerler. Proje; IP adresi, varsayılan ağ geçidi, DNS, alt ağ maskesi, DHCP ve firewall gibi soyut kavramları deneyimsel bir simülasyonla öğretir.
+## Team Information
 
-Mobil Oyun, evrensel tasarım ilkelerine uygun olarak, renk körlüğü yaşayan öğrenciler ayarlar menüsünden ilgili modu açtıklarında oda renkleri ve oyun içi görseller onların algısına uygun şekilde dinamik olarak değişmektedir.
+- **Team Number:** TEAM-5
+- **Project:** Computer Networks and Operating Systems educational game
+- **Target Audience:** Middle school and early high school students who are beginning to learn basic computing concepts
 
-## Şu Ana Kadar Yapılanlar
+---
 
-- Flutter + Flame tabanlı oynanabilir oyun akışı kuruldu.
-- NetQues uygulama kabuğu, giriş ekranı ve oyun ekranı eklendi.
-- Ad,Email/şifre ile kayıt ve giriş sistemi hazırlandı.
-- Şifreler SQLite tarafında SHA-256 hash olarak saklanıyor.
-- Giriş durumu ve kullanıcı bilgisi SharedPreferences ile korunuyor.
-- Hesap oluşturulurken girilen "Ad" oyun içerisindeki karakterin sesleneceği ad olmuş oluyor.
-- 7 bölümlük ağ eğitimi akışı tamamlandı.
-- Level kilidi, tamamlanma durumu, son oynanan bölüm, deneme sayısı ve ipucu sayısı kaydediliyor.
-- Mobil odaklı yatay/dikey yerleşim destekleniyor.
-- Türkçe ve İngilizce dil seçimi eklendi.
-- Profil ekranı, avatar seçimi, görevler, rozetler ve günlük seri takibi eklendi.
-- SQLite progress repository ve web için bellek içi progress repository hazırlandı.
-- Model, progress controller, SQLite repository, profil özeti ve streak davranışları için testler eklendi.
+## 1. Project Overview & Academic Background
 
-## Oynanış
+NetQues is an interactive mobile learning application developed as a joint educational project for Computer Networks and Operating Systems topics. The application teaches abstract technical concepts through short game-based learning tasks, immediate feedback, visual scenes, progress tracking, and profile-based gamification.
 
-Oyun şu bölümlerden oluşur:
+The project focuses on two core academic areas:
 
-1. Ethernet Bağlantısı: Bilgisayarı modeme kabloyla bağlama.
-2. IP Adresi: Aynı yerel ağdaki doğru IP adresini seçme.
-3. Varsayılan Ağ Geçidi: İnternete çıkış için modem/router adresini seçme.
-4. DNS Sunucusu: Alan adını IP adresine çeviren servisi seçme.
-5. Alt Ağ Maskesi: Yerel ağ sınırını doğru subnet maskesiyle belirleme.
-6. DHCP Servisi: IP, maske, gateway ve DNS ayarlarını otomatik dağıtan servisi seçme.
-7. Güvenlik Duvarı: Web erişimi için doğru trafik kuralını seçme.
+- **Computer Networks:** Ethernet connection, IP address, gateway, DNS, subnet mask, DHCP, and firewall.
+- **Operating Systems:** Process, RAM, and file system.
 
-Her bölüm tamamlandığında bir sonraki bölüm açılır. Kilitli, açık ve tamamlanmış bölümler level seçim panelinde görünür. Final bölümden sonra oyuncu başa dönebilir, çıkış yapabilir veya uygulamayı kapatabilir.
+Instead of presenting concepts only as definitions, NetQues transforms them into small playable tasks. Students interact with cables, cards, hints, success feedback, stars, badges, and profile rewards. This supports active learning and helps students connect technical vocabulary with meaningful actions.
 
-## Temel Özellikler
+---
 
-- Sürükle-bırak kablo bağlama mekaniği.
-- Sürükle-bırak seçim kartları.
-- Başarı paneli, öğrenilen konu ve sonraki adım metinleri.
-- İpuçları ve hatalı deneme geri bildirimi.
-- Kullanıcı bazlı ilerleme kaydı.
-- Profil özeti: tamamlanan bölümler, görevler, rozetler ve seri bilgisi.
-- Avatar seçimi.
-- Türkçe/İngilizce lokalizasyon.
-- Desktop, mobil ve web hedefleri için Flutter proje yapısı.
+## 2. Design Methodology: The ADDIE Model
 
-## Çalıştırma
+NetQues was designed according to the ADDIE instructional design model: Analysis, Design, Development, Implementation, and Evaluation.
 
-Ön koşul olarak Flutter SDK kurulu olmalıdır.
+### 2.1. Analysis
+
+- **Content Analysis:** Network and operating system concepts were separated into short, digestible learning steps. Each level focuses on one concept and one clear learning objective.
+- **Target Audience Analysis:** The application is designed for students who may find abstract computing concepts difficult when explained only with text. Therefore, each topic is supported with interaction, visual feedback, and simple language.
+- **Learning Problem:** Concepts such as gateway, DNS, process, and RAM are often invisible to beginners. NetQues makes these ideas concrete through visual metaphors and task-based interaction.
+
+### 2.2. Design
+
+- **Pedagogical Design:** The application uses small-step learning and immediate reinforcement. Each level gives instant feedback after correct or incorrect actions.
+- **Gamification Design:** Stars, badges, daily streaks, profile customization, certificates, and replayable levels are used to increase learner motivation.
+- **Interface Design:** The interface is mobile-friendly and supports both portrait and landscape layouts. The final UI was simplified by removing extra support screens that were not essential to the current learning flow.
+
+### 2.3. Development
+
+- **Framework:** Flutter is used for the application layer.
+- **Game Engine:** Flame is used for the interactive game scene.
+- **Local Persistence:** SQLite stores users and level progress. SharedPreferences stores lightweight user preferences.
+- **Audio:** Sound effects are handled with `audioplayers`, and voice reading is handled with `flutter_tts`.
+- **Localization:** Turkish and English text support is provided through the local localization layer.
+
+### 2.4. Implementation
+
+The current implementation is a playable prototype with login, module selection, level progression, profile tracking, audio settings, and two completed learning modules. Students can complete levels, unlock the next level, earn stars, and retry levels to improve their best star score.
+
+### 2.5. Evaluation
+
+The application records attempts, hint usage, level completion, best star scores, daily streak information, and badge progress. These data points provide a lightweight in-app evaluation layer for monitoring learner progress and engagement.
+
+---
+
+## 3. System Architecture and User Experience Flow
+
+### 3.1. Authentication and Account Management
+
+Users register and log in with an email and password. Passwords are stored as SHA-256 hashes in the local SQLite database. Login state, active user email, and display name are preserved with SharedPreferences.
+
+### 3.2. Module Selection
+
+After login, users arrive at the module selection screen. The current application includes:
+
+1. **Network Basics**
+2. **Operating System Basics**
+
+Each module has its own level list, progress state, and educational context.
+
+### 3.3. Gameplay Flow
+
+The game uses a level-based structure:
+
+1. The student reads the task instruction.
+2. The student performs the required action.
+3. If the answer is wrong, the system gives corrective feedback.
+4. If the answer is correct, the success panel explains the learned concept.
+5. The next level unlocks.
+6. The student can replay a completed level to improve the star score.
+
+### 3.4. Profile Page & Gamification
+
+The profile page displays:
+
+- Completed levels
+- Total stars
+- Daily streak
+- Badges
+- Tasks
+- Certificate
+- Avatar selection
+- Character customization
+
+Hair and outfit colors unlock through collected stars. This connects progress with a visible reward loop.
+
+---
+
+## 4. Current Learning Modules
+
+### 4.1. Network Basics Module
+
+The Network Basics module contains 7 levels:
+
+1. **Ethernet Connection:** Connect the computer to the modem with a cable.
+2. **IP Address:** Identify the device address on the network.
+3. **Default Gateway:** Select the exit point to the internet.
+4. **DNS Server:** Recognize the service that converts website names to IP addresses.
+5. **Subnet Mask:** Understand the local network boundary.
+6. **DHCP Service:** Identify the service that automatically distributes network settings.
+7. **Firewall:** Choose the security rule that controls traffic.
+
+### 4.2. Operating System Basics Module
+
+The Operating System Basics module contains 3 levels:
+
+1. **Process:** Identify a running program instance.
+2. **RAM:** Select the temporary working memory.
+3. **File System:** Recognize the structure that organizes persistent files and folders.
+
+---
+
+## 5. Current Feature Set
+
+- Flutter + Flame interactive game scene
+- Email/password login and registration
+- Module selection screen
+- Network Basics module
+- Operating System Basics module
+- Cable connection mechanic
+- Selection-card based tasks
+- Hints and wrong-answer feedback
+- Success panel with learning notes
+- Star scoring system
+- Star improvement through replay
+- Profile page
+- Avatar selection
+- Character customization
+- Daily streak tracking
+- Tasks and badges
+- Certificate screen
+- Mini glossary
+- Matching game
+- Sound effects
+- Voice reading synced with the active app language
+- Turkish and English localization
+- Mobile portrait and landscape layout support
+
+---
+
+## 6. Simplified or Removed Features
+
+The final interface was simplified to keep the learning flow focused. The following features were removed from the active UI:
+
+- Easy reading mode
+- Separate voice reading language option
+- High contrast mode
+- Color-blind support
+- Concept map
+- Review mode
+- Parent/teacher summary
+- Matching cards
+
+The matching game remains available as the active reinforcement activity.
+
+---
+
+## 7. Technical and Software Infrastructure
+
+### 7.1. Main Code Structure
+
+```txt
+lib/main.dart                         # App shell, auth flow, module flow, game screen, settings
+lib/data/                             # Auth, progress, preferences, profile, streak, and repositories
+lib/game/network_game.dart            # Flame game scene and gameplay logic
+lib/game/levels/                      # Network and operating system level data
+lib/game/components/                  # Game scene components drawn in code
+lib/l10n/app_localizations.dart       # Turkish/English strings and localized module lists
+lib/ui/                               # Login, module selection, level selection, profile, success panels
+assets/audio/                         # Sound effect assets
+assets/images/                        # Image asset directory
+test/                                 # Model, repository, controller, layout, and profile tests
+```
+
+### 7.2. Data Storage
+
+NetQues uses local persistence:
+
+- `network_cable_demo.db`: Stores user email and password hash data.
+- `network_training.db`: Stores level progress, unlock state, completion, attempts, hint usage, best stars, retry state, and last played level.
+- `SharedPreferences`: Stores login state, user display name, avatar, character customization, daily streak, and learning/audio preferences.
+
+For the web target, progress is handled with an in-memory repository because SQLite is not used there.
+
+### 7.3. Dependencies
+
+- `flutter`
+- `flame`
+- `sqflite`
+- `shared_preferences`
+- `crypto`
+- `audioplayers`
+- `flutter_tts`
+- `flutter_test`
+- `sqflite_common_ffi`
+
+---
+
+## 8. How to Run
+
+Install Flutter SDK, then run:
 
 ```bash
 flutter doctor
@@ -66,13 +225,17 @@ flutter pub get
 flutter run
 ```
 
-Web sunucusu olarak çalıştırmak için:
+To run as a web server:
 
 ```bash
 flutter run -d web-server --web-port 8080
 ```
 
-## Doğrulama
+---
+
+## 9. Validation Commands
+
+The project can be checked with:
 
 ```bash
 flutter analyze
@@ -80,44 +243,16 @@ flutter test
 flutter build web
 ```
 
-## Kod Yapısı
+---
 
-```txt
-lib/main.dart                  # App shell, auth wrapper, level seçimi ve oyun ekranı
-lib/data/                      # Auth, SQLite progress, profil/streak ve controller katmanı
-lib/game/network_game.dart     # Flame oyun sahnesi, sürükle-bırak ve level akışı
-lib/game/levels/               # Dart tabanlı 7 level verisi
-lib/game/components/           # Kodla çizilen oyun componentleri
-lib/l10n/                      # Türkçe/İngilizce metinler ve lokalize level kopyaları
-lib/ui/                        # Login, HUD, profil, level seçimi ve başarı panelleri
-test/                          # Model, repository, controller, layout ve profil testleri
-assets/images/                 # Görsel asset alanı
-assets/audio/                  # Ses asset alanı
-docs/                          # Ürün, teknik plan ve roadmap dokümanları
-```
+## 10. Current Limitations
 
-## Veri Saklama
+- The login system is suitable for an educational prototype; a production version would require backend authentication and password reset flows.
+- The web target uses temporary in-memory progress instead of persistent SQLite progress.
+- Most scene visuals are drawn with code; a final production version could use custom illustration assets.
 
-- `users` tablosu kullanıcı email ve şifre hash bilgisini tutar.
-- `level_progress` tablosu kullanıcı bazlı bölüm kilidi, tamamlanma, deneme ve ipucu verilerini tutar.
-- `app_state` tablosu son oynanan bölüm gibi uygulama durumlarını saklar.
-- Web hedefinde progress için geçici bellek içi repository kullanılır.
-- Profil avatar seçimi ve günlük seri bilgisi SharedPreferences ile saklanır.
+---
 
-## Dokümanlar
+## 11. Conclusion
 
-```txt
-docs/PRODUCT_VISION.md       # Ürün vizyonu
-docs/GAME_DESIGN.md          # Oyun tasarımı ve level mantığı
-docs/TECHNICAL_PLAN.md       # Teknik mimari ve geliştirme planı
-docs/SQLITE_DATA_MODEL.md    # SQLite veri modeli
-docs/ROADMAP.md              # Geliştirme yol haritası
-LOGIN_SYSTEM_README.md       # Login sistemi rehberi
-```
-
-## Mevcut Sınırlar ve Sonraki Adımlar
-
-- Final PNG/WAV assetleri henüz üretilmedi; sahne ve efektler kodla çizilen componentlerle çalışıyor.
-- Web tarafında SQLite yerine bellek içi progress kullanıldığı için web progress kalıcı değil.
-- Login sistemi demo seviyesinde; production için backend, daha güçlü şifreleme/parola saklama ve şifre sıfırlama akışı eklenmeli.
-- Dokümanlardaki plan dosyaları, uygulama büyüdükçe yeni özelliklere göre tekrar güncellenmeli.
+NetQues is currently a complete educational game prototype with two learning modules, local progress tracking, gamification, replayable star improvement, profile rewards, audio feedback, and bilingual support. The project demonstrates how Computer Networks and Operating Systems concepts can be transformed into interactive micro-learning tasks for beginner learners.
