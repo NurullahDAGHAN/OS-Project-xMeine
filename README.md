@@ -1,4 +1,5 @@
 # NetQues - Ağ Temelleri Eğitim Oyunu
+YTU-Computer Science
 
 Team Information
 
@@ -9,17 +10,18 @@ Developers: Emre Çoban
             Nurullah Dağhan 
             İdris Baki Uzun
 
-NetQues, Flutter ve Flame ile geliştirilen kısa bir ağ temelleri eğitim oyunudur. Proje, ortaokul/lise başlangıç seviyesindeki öğrencilerin kablo, IP adresi, gateway, DNS, subnet maskesi, DHCP ve firewall gibi temel ağ kavramlarını oyun içinde deneyerek öğrenmesini hedefler.
+NetQues; Flutter ve Flame oyun motorları ile geliştirilmiş, ilkokul ve ortaokul seviyesindeki öğrencilere hitap eden yenilikçi bir eğitsel mobil oyundur. İzometrik bir oda sahnesi üzerinde ilerleyen oyunda oyuncular; önce Ethernet kablosunu doğru porta bağlar, sonraki aşamalarda ise doğru ağ ayar kartlarını bilgisayara sürükleyip bırakarak ilerler. Proje; IP adresi, varsayılan ağ geçidi, DNS, alt ağ maskesi, DHCP ve firewall gibi soyut kavramları deneyimsel bir simülasyonla öğretir.
 
-Uygulama izometrik bir oda sahnesi üzerinde ilerler. Oyuncu önce Ethernet kablosunu doğru porta bağlar, sonraki bölümlerde ise doğru ağ ayar kartlarını bilgisayara sürükleyip bırakır.
+Mobil Oyun, evrensel tasarım ilkelerine uygun olarak, renk körlüğü yaşayan öğrenciler ayarlar menüsünden ilgili modu açtıklarında oda renkleri ve oyun içi görseller onların algısına uygun şekilde dinamik olarak değişmektedir.
 
 ## Şu Ana Kadar Yapılanlar
 
 - Flutter + Flame tabanlı oynanabilir oyun akışı kuruldu.
 - NetQues uygulama kabuğu, giriş ekranı ve oyun ekranı eklendi.
-- Email/şifre ile kayıt ve giriş sistemi hazırlandı.
+- Ad,Email/şifre ile kayıt ve giriş sistemi hazırlandı.
 - Şifreler SQLite tarafında SHA-256 hash olarak saklanıyor.
 - Giriş durumu ve kullanıcı bilgisi SharedPreferences ile korunuyor.
+- Hesap oluşturulurken girilen "Ad" oyun içerisindeki karakterin sesleneceği ad olmuş oluyor.
 - 7 bölümlük ağ eğitimi akışı tamamlandı.
 - Level kilidi, tamamlanma durumu, son oynanan bölüm, deneme sayısı ve ipucu sayısı kaydediliyor.
 - Mobil odaklı yatay/dikey yerleşim destekleniyor.
