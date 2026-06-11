@@ -1,5 +1,14 @@
 # NetQues - Ağ Temelleri Eğitim Oyunu
 
+Team Information
+Team Number: TEAM-5
+Developers:
+Emre Çoban
+Muazzez Şen
+Esranur Aydın
+Nurullah Dağhan
+İdris Baki Uzun
+
 NetQues, Flutter ve Flame ile geliştirilen kısa bir ağ temelleri eğitim oyunudur. Proje, ortaokul/lise başlangıç seviyesindeki öğrencilerin kablo, IP adresi, gateway, DNS, subnet maskesi, DHCP ve firewall gibi temel ağ kavramlarını oyun içinde deneyerek öğrenmesini hedefler.
 
 Uygulama izometrik bir oda sahnesi üzerinde ilerler. Oyuncu önce Ethernet kablosunu doğru porta bağlar, sonraki bölümlerde ise doğru ağ ayar kartlarını bilgisayara sürükleyip bırakır.
