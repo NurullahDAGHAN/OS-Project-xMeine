@@ -68,9 +68,9 @@ The current implementation is a playable prototype with login, module selection,
 
 ### 2.5. Evaluation
 
-The application records attempts, hint usage, level completion, best star scores, daily streak information, and badge progress. These data points provide a lightweight in-app evaluation layer for monitoring learner progress and engagement.
+-**In-App Data Analytics & Formative Assessment:** To natively measure instructional effectiveness, evaluation tools are integrated into the database level. The system tracks completion logs, total attempts, hint usage, daily streak metadata, and badge milestones.
 
----
+-**Formative Assessment Feedback:** At the end of operational modules,  enabling a self-contained evaluation layer that measures the application's true impact on the learner's technical retention.
 
 ## 3. System Architecture and User Experience Flow
 
