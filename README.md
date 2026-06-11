@@ -2,7 +2,7 @@
 
 ## Project File
 
-Report: Team5-Report.pdf  [Takım Raporunu İndirmek İçin Tıklayın](Team5-Report.pdf?raw=true) [Takım Raporunu Görüntüle](Team5-Report.pdf)
+Report: Team5-Report.pdf  [Takım Raporunu Görüntüle](Team5-Report.pdf)
 
 **Project Name:** NetQues  
 **Project Type:** Mobile Educational Game  
