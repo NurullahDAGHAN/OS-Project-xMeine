@@ -20,6 +20,7 @@ N.D.
 I.B.U.
 
  **Project:** Computer Networks and Operating Systems Educational Game
+ 
  **Target Audience:** Middle school and early high school students who are beginning to learn basic computing concepts
 
 ---
