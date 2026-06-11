@@ -1,7 +1,8 @@
 # BTO3102 TEAM 5 NETQUES MOBILE APPLICATION DEVELOPMENT REPORT
 
 ## Project File
-Report: Team5-Report.pdf
+
+Report: [Click](Team5-Report.pdf?raw=true).
 
 **Project Name:** NetQues  
 **Project Type:** Mobile Educational Game  
