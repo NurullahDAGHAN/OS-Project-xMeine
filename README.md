@@ -10,8 +10,8 @@
 ## Team Information
 
   **Team Number:** TEAM-5
-  **Team Members**
   
+  **Team Members**
 -E.C.  
 -M.S.  
 -E.A.  
