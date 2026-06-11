@@ -18,7 +18,6 @@
 
 ## 1. Project Overview & Academic Background
 
-Project Overview & Academic Background
 This report encompasses the design, pedagogical framework, and software development processes of the NetQues mobile application, developed as a collaborative joint term project for the Computer Networks and Operating Systems courses within the Department of Computer Education and Instructional Technology (CEIT).
 
 The theoretical and content foundation of the project is strictly built upon the core competencies of both academic curricula, focusing on two primary areas:
