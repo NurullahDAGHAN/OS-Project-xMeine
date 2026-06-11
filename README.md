@@ -13,11 +13,11 @@
 
 **Team Members:**
 
-E.C.  
-M.S.  
-E.A.  
-N.D.  
-I.B.U.
+Emre Çoban  
+Muazzez Şen  
+Esra Aydın  
+Nurullah Dağhan  
+İdris Baki Uzun
 
  **Project:** Computer Networks and Operating Systems Educational Game
  
