@@ -11,10 +11,11 @@
 
   **Team Number:** TEAM-5
   **Team Members:**
-E.C.
-M.S.
-E.A.
-N.D.
+
+E.C.  
+M.S.  
+E.A.  
+N.D.  
 I.B.U.
 
  **Project:** Computer Networks and Operating Systems Educational Game
