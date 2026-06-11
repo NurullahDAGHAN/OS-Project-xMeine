@@ -9,8 +9,9 @@
 
 ## Team Information
 
--**Team Number:** TEAM-5
--**Team Members:**
+**Team Number:** TEAM-5
+
+**Team Members:**
 
 E.C.  
 M.S.  
