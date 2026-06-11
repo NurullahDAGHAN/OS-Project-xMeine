@@ -3,28 +3,31 @@
 ## Project File
 
 **Project Name:** NetQues  
-**Project Type:** Mobile educational game  
+**Project Type:** Mobile Educational Game  
 **Technology Stack:** Flutter, Flame, Dart, SQLite, SharedPreferences  
 **GitHub Repository:** Connected through the active project remote
 
 ## Team Information
 
 - **Team Number:** TEAM-5
-- **Project:** Computer Networks and Operating Systems educational game
+- **Team Members:** E.C/M.S/E.A/N.D/I.B.U
+- **Project:** Computer Networks and Operating Systems Educational Game
 - **Target Audience:** Middle school and early high school students who are beginning to learn basic computing concepts
 
 ---
 
 ## 1. Project Overview & Academic Background
 
-NetQues is an interactive mobile learning application developed as a joint educational project for Computer Networks and Operating Systems topics. The application teaches abstract technical concepts through short game-based learning tasks, immediate feedback, visual scenes, progress tracking, and profile-based gamification.
+1. Project Overview & Academic Background
+This report encompasses the design, pedagogical framework, and software development processes of the NetQues mobile application, developed as a collaborative joint term project for the Computer Networks and Operating Systems courses within the Department of Computer Education and Instructional Technology (CEIT).
 
-The project focuses on two core academic areas:
+The theoretical and content foundation of the project is strictly built upon the core competencies of both academic curricula, focusing on two primary areas:
 
-- **Computer Networks:** Ethernet connection, IP address, gateway, DNS, subnet mask, DHCP, and firewall.
-- **Operating Systems:** Process, RAM, and file system.
+**Computer Networks: Ethernet connection, IP address, default gateway, DNS, subnet mask, DHCP, and firewall.**
 
-Instead of presenting concepts only as definitions, NetQues transforms them into small playable tasks. Students interact with cables, cards, hints, success feedback, stars, badges, and profile rewards. This supports active learning and helps students connect technical vocabulary with meaningful actions.
+**Operating Systems: Process, RAM, and file system management.**
+
+NetQues transforms abstract, complex, and invisible technical concepts into small, playable, interactive learning tasks. Instead of presenting definitions via passive text, the platform utilizes an interactive isometric room scene, tactile game mechanics, structured hints, and immediate evaluation feedback. By interacting directly with visual assets such as cables, configuration cards, stars, and badges, students can connect abstract computing vocabulary with meaningful, concrete actions. Guided by progress tracking and a profile-based gamification ecosystem, the application stands as a comprehensive platform engineered to support middle school and early high school students through sustainable active learning.
 
 ---
 
