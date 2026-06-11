@@ -2,7 +2,7 @@
 
 ## Project File
 
-Report: [Click](Team5-Report.pdf?raw=true).
+Report: Team5-Report.pdf
 
 **Project Name:** NetQues  
 **Project Type:** Mobile Educational Game  
